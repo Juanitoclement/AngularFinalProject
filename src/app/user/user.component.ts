@@ -12,12 +12,8 @@ export class UserComponent implements OnInit {
 
   @Input() userName: any = {};
   userEmail: any = {};
-  userPhone: any = {};
-
   ngOnInit() {
     this.userName = localStorage.getItem('userName');
     this.userEmail = localStorage.getItem('userEmail');
-    this.userPhone = localStorage.getItem('userPhone');
-
   }
 }
