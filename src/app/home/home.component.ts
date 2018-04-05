@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { DataService } from '../services/data.service';
 import {Router} from '@angular/router';
 
@@ -8,13 +8,20 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   public data: string;
-  constructor(private dataService: DataService, private router: Router) { }
+
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+  ) { }
+
+
   gooLogin() {
-        this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/login');
   }
+
   gooLogout() {
+
   }
 
   ngOnInit() {
@@ -23,3 +30,4 @@ export class HomeComponent implements OnInit {
     });
   }
 }
+

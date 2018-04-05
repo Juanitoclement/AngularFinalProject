@@ -5,21 +5,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<div [hidden]="online">
 <div class="login-form">
+  <form (ngSubmit)="submitRegister()" #signupForm="ngForm">
     <h2 class="text-center">Sign Up</h2>
       <div class="form-group">
-        <input type="text" [(ngModel)]="registerForm.name" class="form-control" id="name" placeholder="Name" required="required">
+          <!--<label for="name">Name</label>-->
+          <input type="text" class="form-control" id="name" required
+                 [(ngModel)]="registerForm.name" name="name" placeholder="Name"
+                 #name="ngModel">
+          <div [hidden]="name.valid || name.pristine"
+               class="alert alert-danger">
+            Please Enter Your Name
+          </div>
       </div>
       <div class="form-group">
-        <input type="text" [(ngModel)]="registerForm.email" class="form-control" id="email" placeholder="Email" required="required">
+          <input type="text" class="form-control" id="email" required
+                 [(ngModel)]="registerForm.email" name="email" placeholder="Email"
+                 #email="ngModel">
+          <div [hidden]="email.valid || email.pristine"
+               class="alert alert-danger">
+            Please Enter Your Email
+          </div>
       </div>
       <div class="form-group">
-        <input type="password" [(ngModel)]="registerForm.password" class="form-control" id="password" placeholder="Password" required="required">
+          <input type="password" class="form-control" id="password" required
+                 [(ngModel)]="registerForm.password" name="password" placeholder="Password"
+                 #password="ngModel">
+        <small [hidden]="password.valid || (password.pristine && !f.submitted)">
+          Password is required
+        </small>
       </div>
-
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" (click)="submitRegister()">SignUp</button>
+    <div class="form-group">
+      <input type="password" class="form-control" id="confirmPassword" required
+             [(ngModel)]="registerForm.confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+             #confirmPassword="ngModel">
+      <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)">
+        Password mismatch
+      </small>
+    </div>
+      <div>
+          <button type="submit" [disabled]="!signupForm.form.valid" class="btn btn-primary btn-block">Submit</button>
       </div>
-    <p class="text-center"><a href="/login">Have an Account ? Login</a></p>
+      <p class="text-center"><a href="/login">Have an Account ? Login</a></p>
+  </form>
 </div>
-
+</div>

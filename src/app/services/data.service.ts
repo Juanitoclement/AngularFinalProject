@@ -4,40 +4,51 @@ import { SignIn } from '../SignIn';
 
 import 'rxjs/add/operator/map';
 
+
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.token}`
+  }),
 };
+
 @Injectable()
 export class DataService {
+
+  token = localStorage.token;
+
   constructor(private http: HttpClient) {
   }
 
   postSignIn(signing: SignIn) {
     let response: any = {};
     const url = 'http://localhost:8000/api/login';
-    return this.http.post(url, signing, httpOptions).map(res => {
+    return this.http.post<any>(url, signing, httpOptions).map(res => {
       console.log(res);
       response = res;
-      localStorage.setItem('token', response['data']['token']);
+      if (res && res.data.token){
+        localStorage.setItem('token', response['data']['token']);
+        // setItem('key', 'value')
+        return res;
+      }
     });
   }
 
   postRegister(registerForm) {
-    let response: any = {};
     const url = 'http://localhost:8000/api/register';
     return this.http.post(url, registerForm, httpOptions).map(res => {
       console.log(res);
-      response = res;
+    });
+  }
+  getUser() {
+    const url = 'http://localhost:8000/api/getName';
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
     });
   }
 
-  getUser() {
-    let response: any = {};
-    const url = 'http://localhost:8000/api/all';
-    return this.http.get(url).map(res => {
-      console.log(res);
-      response = res;
-      localStorage.getItem('name');
-    });
+  logout() {
+    localStorage.removeItem('token');
   }
 }

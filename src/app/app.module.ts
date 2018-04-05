@@ -10,10 +10,11 @@ import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 import {DataService} from './services/data.service';
+
 
 @NgModule({
   declarations: [
@@ -23,8 +24,8 @@ import {DataService} from './services/data.service';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
-    NavbarComponent,
     RegisterComponent,
+    NavigationBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,7 @@ import {DataService} from './services/data.service';
     HttpClientModule,
 
   ],
-  providers: [DataService ],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

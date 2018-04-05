@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         console.log('Login Completed'); this.router.navigateByUrl('/home');
         },
         err => {
-        console.error(err); alert('Login Unsuccesful');
+        console.error(err); alert('Login Unsuccesful') ;
         },
       () => {
         console.log('Login Succesful'); alert('Login Sucessful');
