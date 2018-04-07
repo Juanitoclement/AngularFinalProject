@@ -1,33 +1,33 @@
 import {Component, OnInit} from '@angular/core';
-import { DataService } from '../services/data.service';
-import {Router} from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+
 })
 export class HomeComponent implements OnInit {
   public data: string;
 
+
   constructor(
-    private dataService: DataService,
-    private router: Router,
+    private user: UserService,
   ) { }
 
-
-  gooLogin() {
-    this.router.navigateByUrl('/login');
-  }
-
-  gooLogout() {
-
+  welcome() {
+    if (this.user.token) {
+      this.user.getUser().subscribe(resp => {
+        this.data = resp['name'];
+      });
+    } else {
+      this.data = ' Guest';
+    }
   }
 
   ngOnInit() {
-    this.dataService.getUser().subscribe(resp => {
-      this.data = resp['name'];
-    });
-  }
+    this.welcome();
 }
+  }
+
 

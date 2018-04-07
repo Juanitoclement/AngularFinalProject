@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataService} from '../services/data.service';
-import { SignIn} from '../SignIn';
-import {Router} from '@angular/router';
+import { UserService } from '../services/user.service';
+import { SignIn } from '../SignIn';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,27 +9,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(
+    private dataService: UserService,
+    private router: Router
+  ) {}
   @Input() signing: SignIn;
-  status: boolean;
+
   clear() {
     this.signing.email = '';
     this.signing.password = '';
   }
   submitLogin() {
     this.dataService.postSignIn(this.signing).subscribe(
-      () => {
-        console.log('Login Completed'); this.router.navigateByUrl('/home');
-        },
-        err => {
-        console.error(err); alert('Login Unsuccesful') ;
-        },
-      () => {
-        console.log('Login Succesful'); alert('Login Sucessful');
-      }
+      () => {console.log('Login Completed'); },
+      err => {console.error(err); alert('Login Unsuccesful') ; } ,
+      () => {console.log('Login Succesful'); alert('Login Sucessful'); this.router.navigateByUrl('/home'); location.reload(); }
     );
-    this.status = true;
   }
 
   ngOnInit() {

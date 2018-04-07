@@ -13,10 +13,9 @@ const httpOptions = {
 };
 
 @Injectable()
-export class DataService {
+export class UserService {
 
   token = localStorage.token;
-
   constructor(private http: HttpClient) {
   }
 
@@ -28,12 +27,10 @@ export class DataService {
       response = res;
       if (res && res.data.token){
         localStorage.setItem('token', response['data']['token']);
-        // setItem('key', 'value')
         return res;
       }
     });
   }
-
   postRegister(registerForm) {
     const url = 'http://localhost:8000/api/register';
     return this.http.post(url, registerForm, httpOptions).map(res => {
@@ -41,14 +38,15 @@ export class DataService {
     });
   }
   getUser() {
-    const url = 'http://localhost:8000/api/getName';
-    return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
-      return res;
-    });
+      const url = 'http://localhost:8000/api/getName';
+        return this.http.get(url, httpOptions).map(res => {
+          console.log(res);
+          return res;
+        });
   }
-
   logout() {
-    localStorage.removeItem('token');
+    const url = 'http://localhost:8000/api/logout';
+      localStorage.removeItem('token');
+      return this.http.get(url, httpOptions);
   }
 }

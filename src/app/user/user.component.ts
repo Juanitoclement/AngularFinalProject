@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { DataService } from '../services/data.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -8,7 +8,7 @@ import { DataService } from '../services/data.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: UserService) { }
 
   @Input() userName: any = {};
   userEmail: any = {};

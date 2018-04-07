@@ -1,0 +1,75 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+main {
+  min-height: 400px;
+  min-width: 400px;
+  background: #fff;
+  padding: 40px 20px;
+  width: 70%;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+.pet {
+  display: flex;
+}
+.my_pet {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.pet {
+  height: 75px;
+  align-items: center;
+  padding: 0 20px;
+  border: 2px solid rgba(238,238,238 ,1);
+  border-radius: 5px;
+  color: rgba(117,117,117 ,1);
+  box-shadow: 5px 10px 20px -20px rgba(85,172,238 ,1);
+}
+.pet li {
+  cursor: pointer;
+}
+.pet li:hover{
+  color: rgba(85,172,238 ,1);
+}
+.my_pet {
+  color: rgba(85,172,238 ,1);
+  font-size: 1.3em;
+}
+.pet li:not(:last-child):not(.my_pet) {
+  margin-right: 10px;
+}
+.pet li  i:not(.fa-pet):not(.fa-search):not(.fa-user-circle-o) {
+  margin-right: 3px;
+}
+.pet li > button {
+  font-size: 0.8em;
+  border: 0;
+  background: rgba(85,172,238 ,1);
+  color: #fff;
+  border-radius: 100px;
+}
+.profile{
+  width: 50px;
+  length: 50px;
+}
+input {
+  width: 200px;
+  padding-left: 80px;
+  box-sizing: border-box;
+
+  background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_search_48px-128.png);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: 62px 0;
+}
+input:focus {
+  padding-left: 16px;
+  background-position: 0;
+}
