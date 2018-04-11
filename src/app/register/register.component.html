@@ -1,0 +1,45 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <div [hidden]="online">
+  <div class="login-form">
+    <form (ngSubmit)="submitRegister()" #signupForm="ngForm">
+      <h2 class="text-center">Sign Up</h2>
+        <div class="form-group">
+            <!--<label for="name">Name</label>-->
+            <input type="text" class="form-control" id="name" required
+                   [(ngModel)]="sighup.name" name="name" placeholder="Name"
+                   #name="ngModel">
+            <div [hidden]="name.valid || name.pristine"
+                 class="alert alert-danger">
+              Please Enter your Name
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="email" required
+                   [(ngModel)]="sighup.email" name="email" placeholder="Email"
+                   #email="ngModel">
+            <div [hidden]="email.valid || email.pristine"
+                 class="alert alert-danger">
+              Please Enter Your Email
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" required
+                   [(ngModel)]="sighup.password" name="password" placeholder="Password"
+                   #password="ngModel">
+          <small [hidden]="password.valid || password.pristine && !signupForm.submitted">
+            Password is required
+          </small>
+        </div>
+        <div>
+            <button type="submit" [disabled]="!signupForm.valid" class="btn btn-primary btn-block">Submit</button>
+        </div>
+        <p class="text-center"><a (click)="openDialog()">Have an Account ? Login</a></p>
+    </form>
+  </div>
+  </div>
