@@ -32,9 +32,10 @@ export class SearchUiComponent implements OnInit {
           container:'#hits',
           templates:{
             empty: 'No results',
-            item:`<img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="50px">
-                  <strong> Result {{objectID}} </strong>:
-                  {{{_highlightResult.name.value}}}`
+            item:`<img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="70px">
+                  <strong>{{{_highlightResult.username.value}}}</strong>
+                  <font size='1'>{{{followers}}} followers</font>
+                  `
           },
           escapeHits:true
       })
