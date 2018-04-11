@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
 
@@ -28,6 +29,7 @@ import {UserService} from './services/user.service';
     HomeComponent,
     RegisterComponent,
     NavigationBarComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

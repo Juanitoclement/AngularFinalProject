@@ -8,25 +8,16 @@ import { UserService } from '../services/user.service';
 
 })
 export class HomeComponent implements OnInit {
-  public data: string;
 
 
   constructor(
     private user: UserService,
   ) { }
 
-  welcome() {
-    if (this.user.token) {
-      this.user.getUser().subscribe(resp => {
-        this.data = resp['name'];
-      });
-    } else {
-      this.data = ' Guest';
-    }
-  }
+
 
   ngOnInit() {
-    this.welcome();
+
 }
   }
 

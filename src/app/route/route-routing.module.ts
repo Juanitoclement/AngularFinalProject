@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent} from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { AuthGuard } from '../auth.guard';
-import {HomeComponent} from '../home/home.component';
+import { HomeComponent } from '../home/home.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({

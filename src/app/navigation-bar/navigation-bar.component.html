@@ -1,15 +1,32 @@
-
-<div>
-<ul class="pet" role="navigation">
-  <li><i class="fa fa-home"></i>Homee</li>
-  <li><i class="fa fa-bell-o"></i>Notifications</li>
-  <li><i class="fa fa-envelope-o"></i>Messages</li>
-  <li><i class="fa fa-pet"></i></li>
-  <li><form><input type="text" placeholder="Search"/><i class="fa fa-search"></i></form></li>
-  <li><i class="fa fa-user-circle-o"></i></li>
-  <li><button>search</button></li>
-  <li class="my_pet"> <a href="/home"><img class="profile" src="assets/1.png"></a></li>
-  <li class="my_pet"> <a href="/home" *ngIf="loggedIn" (click)="logout()"><img class="profile" src="assets/2.png"></a></li>
-  <li class="my_pet"> <a *ngIf="!loggedOut" (click)="openDialog()"><img class="profile" src="assets/3.png"></a></li>
-</ul>
-</div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/home">My Pet Republic</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href onclick="return false" *ngIf="!loggedOut" (click)="openDialog()">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href onclick="return false" *ngIf="!loggedOut" (click)="openDialogg()">Create</a>
+      </li>
+      <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return false" *ngIf="loggedIn">
+          {{this.data}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Notifications</a>
+          <a class="dropdown-item" href="#">Following</a>
+          <a class="dropdown-item" href="#">Followers</a>
+          <a class="dropdown-item" href="#">My Pet</a>
+          <a class="dropdown-item" href="/home" (click)="logout()" >Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
