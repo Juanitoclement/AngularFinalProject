@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit {
     this.dataService.postRegister(this.sighup).subscribe(
       () => console.log('Registation is filled'),
       err => { console.error(err); alert('Registation Unsuccesful'); this.ngOnInit(); },
-      () => { console.log('Email verification'); alert('Verify your email'); this.router.navigateByUrl('/home'); this.online = true; },
+      () => { console.log('Email verification'); alert('Verify your email'); this.router.navigateByUrl('/home');
+      this.online = true; this.dialog.closeAll(); },
     );
   }
   openDialog(): void {
@@ -42,6 +43,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.sighup = new SignUp();
     this.sighup.name = '';
+    this.sighup.username = '';
     this.sighup.password = '';
     this.sighup.email = '';
   }

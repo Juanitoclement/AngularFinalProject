@@ -19,6 +19,16 @@
               Please Enter your Name
             </div>
         </div>
+      <div class="form-group">
+        <!--<label for="userName">UserName</label>-->
+        <input type="text" class="form-control" id="username" required
+               [(ngModel)]="sighup.username" name="username" placeholder="Username"
+               #username = "ngModel">
+        <div [hidden]="username.valid || username.pristine"
+             class="alert alert-danger">
+          Please Enter your UserName
+        </div>
+      </div>
         <div class="form-group">
             <input type="text" class="form-control" id="email" required
                    [(ngModel)]="sighup.email" name="email" placeholder="Email"
@@ -39,7 +49,7 @@
         <div>
             <button type="submit" [disabled]="!signupForm.valid" class="btn btn-primary btn-block">Submit</button>
         </div>
-        <p class="text-center"><a (click)="openDialog()">Have an Account ? Login</a></p>
+        <p  class="text-center" ><a href onclick="return false" (click)="openDialog()">Have an Account ? Login</a></p>
     </form>
   </div>
   </div>

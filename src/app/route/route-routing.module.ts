@@ -7,13 +7,14 @@ import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { SearchUiComponent } from '../search-ui/search-ui.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'search-ui', component:SearchUiComponent },
+  { path: 'profile/:id', component: ProfileComponent },
+  { path: 'search-ui', component: SearchUiComponent },
   { path: '**', redirectTo: '' },
 
 ];
@@ -23,4 +24,6 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard],
 })
-export class RouteRoutingModule { }
+export class RouteRoutingModule {
+
+}

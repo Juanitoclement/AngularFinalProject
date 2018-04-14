@@ -44,6 +44,12 @@ export class UserService {
           return res;
         });
   }
+  getProfile( id: number) {
+    const url = 'http://localhost:8000/api/profile/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
   logout() {
     const url = 'http://localhost:8000/api/logout';
       localStorage.removeItem('token');
