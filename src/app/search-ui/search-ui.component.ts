@@ -40,7 +40,7 @@ export class SearchUiComponent implements OnInit {
           escapeHits:true
       })
     );
-
+    
     this.search.addWidget(
       instantsearch.widgets.stats({
           container:'#stats'
@@ -48,17 +48,17 @@ export class SearchUiComponent implements OnInit {
       )
     );
 
-    this.search.addWidget(
-      instantsearch.widgets.analytics({
-          pushFunction: (query,state,results) => {
-            console.log(query)
-            console.log(state)
-            console.log(results)
-          }
-        })
-    );
+    // this.search.addWidget(
+    //   instantsearch.widgets.analytics({
+    //       pushFunction: (query,state,results) => {
+    //         console.log(query)
+    //         console.log(state)
+    //         console.log(results)
+    //       }
+    //     })
+    // );
 
-    this.search.start();
+  this.search.start();
   }
 
 }
