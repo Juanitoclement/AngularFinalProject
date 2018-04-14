@@ -18,7 +18,6 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
-import { SearchUiComponent } from './search-ui/search-ui.component';
 
 
 @NgModule({
@@ -32,7 +31,6 @@ import { SearchUiComponent } from './search-ui/search-ui.component';
     RegisterComponent,
     NavigationBarComponent,
     ProfileComponent,
-    SearchUiComponent,
   ],
   imports: [
     BrowserModule,
