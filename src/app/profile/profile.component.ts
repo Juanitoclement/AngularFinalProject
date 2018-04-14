@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-// import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
+
 import 'rxjs/add/operator/map';
 import {ActivatedRoute} from '@angular/router';
 @Component({
