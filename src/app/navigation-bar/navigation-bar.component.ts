@@ -79,7 +79,6 @@ export class NavigationBarComponent implements OnInit {
         poweredBy : false
       })
     );
-
     this.search.start();
   }
   search2() {
