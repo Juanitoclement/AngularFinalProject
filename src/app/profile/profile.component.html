@@ -23,11 +23,20 @@
 <body>
 <div class="container">
   <div class="card">
+<<<<<<< HEAD
+    <img src="http://localhost/auth2/storage/app/public/images/{{this.display}}" alt="John" style="width:100%">
+    <p class="title">NAME : {{this.name}}</p>
+    <p>EMAIL : {{this.email}}</p>
+    <p>Created At : {{this.created}}</p>
+    <p>Updated At : {{this.updated}}</p>
+    <p><button type="submit" (click)="onClick()">Edit</button><button>Add Pet</button></p>
+=======
     <img src="http://localhost/gg/storage/app/public/images/{{this.display}}" alt="John" style="width:100%">
     <p class="title">NAME : {{this.uname}}</p>
     <p>EMAIL : {{this.uemail}}</p>
     <p>BIO : {{this.ubio}}</p>
     <p><button type="submit" (click)="onClick()" *ngIf="edit">Edit</button><button *ngIf="edit" >Add Pet</button></p>
+>>>>>>> 4eeae1877e09201f8fa68c02ae0070b0076eb871
   </div>
 </div>
 <div class="container" [hidden]="!view">
@@ -86,7 +95,7 @@
       </form>
     </div>
     <div class="col-md-2 hidden-xs">
-      <img src="http://localhost/gg/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
+      <img src="http://localhost/auth2/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
     </div>
   </div>
 
@@ -96,4 +105,3 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 </body>
-
