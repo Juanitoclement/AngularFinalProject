@@ -88,7 +88,7 @@ export class NavigationBarComponent implements OnInit {
         container: '#hits',
         templates: {
           empty: 'No results',
-          item: `<a href="/profile/{{{objectID}}}"><img src=http://localhost/gg/storage/app/public/images/{{displaypic}} width="70px">
+          item: `<a href="/profile/{{{objectID}}}"><img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="70px">
                   <strong>{{{_highlightResult.username.value}}}</strong>
                   <font size='1'>{{{followers}}} followers</font></a>
                   `,
@@ -125,5 +125,3 @@ export class NavigationBarComponent implements OnInit {
   }
 
 }
-
-
