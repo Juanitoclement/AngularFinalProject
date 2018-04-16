@@ -12,6 +12,7 @@ import {Doggies} from '../doggies';
 })
 export class ProfileComponent implements OnInit {
   online: boolean;
+  view: boolean;
   edit: boolean;
   uid: any;
   tarid: any;
@@ -28,7 +29,7 @@ export class ProfileComponent implements OnInit {
   pgender: any;
   display2: any;
   dog_array: any[];
-  public doggies: Doggies[];    
+  public doggies: Doggies[];
   constructor(private user: UserService, private route: ActivatedRoute) {
   }
   @Input() updateForm: User;
