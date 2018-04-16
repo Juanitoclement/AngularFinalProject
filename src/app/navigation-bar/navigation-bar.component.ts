@@ -87,11 +87,22 @@ export class NavigationBarComponent implements OnInit {
         container: '#hits',
         templates: {
           empty: 'No results',
-          item: `<a href="/profile/{{{objectID}}}"><img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="70px">
-                  <strong>{{{_highlightResult.username.value}}}</strong>
-                  <font size='1'>{{{followers}}} followers</font></a>
+          item: `<div class="hit">
+                      <div class="hit-image"><img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="70px" height="70px"></div>
+                      <div class="hit-content">
+                        <div class="hitcontentitems"><strong>{{{_highlightResult.username.value}}}</strong> </div>
+                        <div class="hitcontentitems"><font size='1'>{{{followers}}} followers</font> </div>
+                        <div class="hitcontentitems">
+                          <div class='doggies'><img class="dog_img" src=http://localhost/auth2/storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
+                          <div class='doggies'><font size='2'> {{#dog}} <a href="#" class="dogbutton dogs" style="text-decoration: none;"> {{{dogname}}}</a> {{/dog}}</font></div>
+                        </div>
+                      </div>
+                  </div>
                   `,
         },
+        //ganti css buat item di styles.css
+        //href="/profile/{{{objectID}}}"
+
         escapeHits: true
       })
     );

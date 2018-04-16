@@ -47,15 +47,8 @@ export class ProfileComponent implements OnInit {
     this.online = false;
   }
   ngOnInit() {
-<<<<<<< HEAD
-      this.user.getProfile(this.id).subscribe(resp => {
-      this.data = resp;
-      console.log(this.data);
-    });
-=======
     this.profile();
     this.updateForm = new User();
->>>>>>> dbe3ab435b28e6baf51e60f8b96ed0e48076b1da
   }
 
 }
