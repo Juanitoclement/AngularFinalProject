@@ -1,6 +1,6 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouteRoutingModule} from './route/route-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -39,6 +39,7 @@ import {UserService} from './services/user.service';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   providers: [UserService,],
   bootstrap: [AppComponent]

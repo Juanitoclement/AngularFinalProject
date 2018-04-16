@@ -21,24 +21,31 @@
 </head>
 
 <body>
-<div class="container" >
+<div class="container">
   <div class="card">
     <img src="http://localhost/gg/storage/app/public/images/{{this.display}}" alt="John" style="width:100%">
-    <p class="title">NAME : {{this.name}}</p>
-    <p>EMAIL : {{this.email}}</p>
-    <p>Created At : {{this.created}}</p>
-    <p>Updated At : {{this.updated}}</p>
-    <p><button type="submit" (click)="onClick()">Edit</button><button>Add Pet</button></p>
+    <p class="title">NAME : {{this.uname}}</p>
+    <p>EMAIL : {{this.uemail}}</p>
+    <p>BIO : {{this.ubio}}</p>
+    <p><button type="submit" (click)="onClick()" *ngIf="edit">Edit</button><button *ngIf="edit" >Add Pet</button></p>
+  </div>
+</div>
+<div class="container">
+  <div class="card" *ngFor="let dog of doggies">
+    <img src="http://localhost/gg/storage/app/public/images/{{dog.displaypic}}" alt="John" style="width:100%">
+    <p class="title">Dog NAME : {{dog.name}}</p>
+    <p>Description : {{dog.desc}}</p>
+    <p><button type="submit" (click)="onClick()" *ngIf="edit">Edit</button><button *ngIf="edit" >Add Pet</button></p>
   </div>
 </div>
 
+
 <div [hidden] = "!online">
-  <div class="row">
-    <div class="col-md-10 ">
-      <form class="form-horizontal" (ngSubmit)="submitUpdate()" #updateForm="ngForm">
+    <div class="col-md-10 profile-form">
+      <form class="form-horizontal" (ngSubmit)="submitUpdate()" #profileForm="ngForm">
           <!-- Form Name -->
           <legend>Profile</legend>
-          <!-- Text input-->
+          <!-- Name input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="name">Name (Full name)</label>
             <div class="col-md-4">
@@ -47,20 +54,9 @@
                   <i class="fa fa-user">
                   </i>
                 </div>
-                <input id="name" type="text" class="form-control input-md" value="{{this.name}}">
-              </div>
-            </div>
-          </div>
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="UserName">User Name</label>
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-user">
-                  </i>
-                </div>
-                <input id="UserName" name="UserName" type="text" value={{this.username}} class="form-control input-md">
+                <input type="text" class="form-control input-md" id="name" required
+                       [(ngModel)]="updateForm.name" name="name"
+                       #name="ngModel" value="{{this.uname}}">
               </div>
             </div>
           </div>
@@ -71,31 +67,21 @@
               <input id="Upload photo" name="Upload photo" class="input-file" type="file">
             </div>
           </div>
-          <!-- Text input-->
+          <!-- Bio input -->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="Email Address">Email Address</label>
+            <label class="col-md-4 control-label" for="bio">BIO (max 200 words)</label>
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-envelope-o" ></i>
-                </div>
-                <input id="Email Address" name="Email Address" type="text" placeholder="Email Address" class="form-control input-md">
-              </div>
-            </div>
-          </div>
-          <!-- Textarea -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="Overview (max 200 words)">BIO (max 200 words)</label>
-            <div class="col-md-4">
-              <textarea class="form-control" rows="10"  id="Overview (max 200 words)" name="Overview (max 200 words)" ></textarea>
+              <input type="text" class="form-control" id="bio" required
+                     [(ngModel)]="updateForm.bio" name="bio"
+                     #bio="ngModel" value="{{this.ubio}}">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" ></label>
             <div class="col-md-4">
-              <a href="#" class="btn btn-success" ><span class="glyphicon glyphicon-thumbs-up"></span> Submit</a>
-              <a href="#" class="btn btn-danger" value=""><span class="glyphicon glyphicon-remove-sign"></span> Clear</a>
-              <a href onclick="return false" class="btn" (click)="offClick()" value=""><span class="glyphicon glyphicon-remove-sign"></span> Exit</a>
+              <button type="submit" class="btn btn-success">Submit</button>
+              <button class="btn btn-danger"> Clear</button>
+              <button a href onclick="return false" class="btn" (click)="offClick()" value="">Exit</button>
             </div>
           </div>
       </form>
@@ -104,7 +90,7 @@
       <img src="http://localhost/gg/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
     </div>
   </div>
-</div>
+
 <!-- jQuery Version 1.11.1 -->
 <script src="js/jquery.js"></script>
 
