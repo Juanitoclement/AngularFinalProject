@@ -28,4 +28,10 @@ button:hover, a:hover {
   opacity: 0.7;
 }
 
+body {
+  padding-top: 70px;
+  /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.othertop{margin-top:10px;}
 

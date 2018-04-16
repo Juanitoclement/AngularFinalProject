@@ -25,7 +25,7 @@ export class UserService {
     return this.http.post<any>(url, signing, httpOptions).map(res => {
       console.log(res);
       response = res;
-      if (res && res.data.token){
+      if (res && res.data.token) {
         localStorage.setItem('token', response['data']['token']);
         return res;
       }
@@ -33,7 +33,7 @@ export class UserService {
   }
   postRegister(registerForm) {
     const url = 'http://localhost:8000/api/register';
-    return this.http.post(url, registerForm, httpOptions).map(res => {
+    return this.http.post<any>(url, registerForm, httpOptions).map(res => {
       console.log(res);
     });
   }
@@ -45,8 +45,16 @@ export class UserService {
         });
   }
   getProfile( id: number) {
-    const url = 'http://localhost:8000/api/profile/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+      const url = 'http://localhost:8000/api/profile/' + id;
+      return this.http.get(url, httpOptions).map(res => {
+        console.log(res);
+        return res;
+      });
+  }
+  postUpdate(updateForm) {
+    const url = 'http://localhost:8000/api/update';
+    return this.http.post(url, updateForm, httpOptions).map(res => {
+      console.log(res);
       return res;
     });
   }

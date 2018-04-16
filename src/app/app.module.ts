@@ -8,7 +8,6 @@ import { MatDialogModule} from '@angular/material';
 import { MatFormFieldModule, MatInputModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,7 +22,6 @@ import {UserService} from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
     LoginComponent,
     FooterComponent,
     HeaderComponent,
