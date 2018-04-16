@@ -44,6 +44,13 @@ export class UserService {
           return res;
         });
   }
+  getLoginInId() {
+    const url = 'http://localhost:8000/api/user';
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
   getProfile( id: number) {
       const url = 'http://localhost:8000/api/profile/' + id;
       return this.http.get(url, httpOptions).map(res => {
@@ -53,9 +60,8 @@ export class UserService {
   }
   postUpdate(updateForm) {
     const url = 'http://localhost:8000/api/update';
-    return this.http.post(url, updateForm, httpOptions).map(res => {
+    return this.http.post<any>(url, updateForm, httpOptions).map(res => {
       console.log(res);
-      return res;
     });
   }
   logout() {

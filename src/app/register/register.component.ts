@@ -4,7 +4,6 @@ import { SignUp } from '../SignUp';
 import { Router } from '@angular/router';
 import {LoginComponent} from '../login/login.component';
 import {MatDialog} from '@angular/material';
-
 @Component({
   moduleId: module.id,
   selector: 'app-register',
@@ -13,12 +12,13 @@ import {MatDialog} from '@angular/material';
 })
 export class RegisterComponent implements OnInit {
   online = false;
-
+  password: any;
   constructor(
     private dataService: UserService,
     private router: Router,
     public dialog: MatDialog,
-  ) {}
+  ) {
+  }
   @Input() sighup: SignUp;
 
   submitRegister() {

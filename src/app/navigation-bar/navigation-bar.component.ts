@@ -119,8 +119,8 @@ export class NavigationBarComponent implements OnInit {
     this.search.addWidget(
       instantsearch.widgets.analytics({
         pushFunction: (query, state, results) => {
-          console.log(query)
-          console.log(state)
+          console.log(query);
+          console.log(state);
           console.log(results);
         }
       })
