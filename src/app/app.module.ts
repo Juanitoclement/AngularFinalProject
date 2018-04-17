@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
 
+import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {UserService} from './services/user.service';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FileDropModule,
   ],
   providers: [UserService,],
   bootstrap: [AppComponent]

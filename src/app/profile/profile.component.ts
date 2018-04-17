@@ -4,7 +4,11 @@ import { User } from '../User';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute} from '@angular/router';
 import {Doggies} from '../doggies';
-
+import { UploadEvent, UploadFile } from 'ngx-file-drop';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { FileSystemFileEntry, FileSystemEntryMetadata, FileSystemEntry, FileSystemDirectoryEntry }from 'ngx-file-drop';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -22,14 +26,76 @@ export class ProfileComponent implements OnInit {
   ubio: any;
   uusername: any;
   display: any;
-  selectedFile: File = null;
+  public files: UploadFile[] = [];
+  relativePath:string;
+
+  public dropped(event: UploadEvent) {
+    this.files = event.files;
+    for (const droppedFile of event.files) {
+
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry ;
+          //
+          // var formData = new FormData();
+          // formData.append('key1', 'value1');
+          // formData.append('key2', 'value2');
+          // console.log("hello");
+          // for (var pair of formData.entries()) {
+          //     console.log("helloww");
+          //     console.log(pair[0]+ ', ' + pair[1]);
+          // }
+
+
+        fileEntry.file((file: File) => {
+
+          // Here you can access the real file
+          console.log(droppedFile.relativePath, file);
+
+          // You could upload it like this:
+          var formData = new FormData();
+          // formData.append('displaypic',file);
+          // Headers
+
+          for(const key in file){
+            formData.append(key, file[key]);
+          }
+          console.log(formData.getAll('key'));
+
+          this.user.updatepic(file).subscribe();
+          //
+          // this.http.post('http://localhost:8000/api/updateDisplayPic', formData, { headers: headers, responseType: 'blob' })
+          // .subscribe(data => {
+          //   console.log(formData.getAll('displaypic'));
+          // })
+
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+  public fileOver(event){
+    console.log(event);
+  }
+
+  public fileLeave(event){
+    console.log(event);
+  }
+
+
 
   public doggies: Doggies[];
-  constructor(private user: UserService, private route: ActivatedRoute) {
+  constructor(private user: UserService, private route: ActivatedRoute,private http: HttpClient) {
   }
   @Input() updateForm: User;
 
   profile() {
+
+
+
     this.user.getLoginInId().subscribe(resp => {
       this.currid = resp['id'];
       console.log(this.currid);
@@ -64,10 +130,17 @@ export class ProfileComponent implements OnInit {
       () => { console.log('Update Successful'); alert('Update Succesful'); },
     );
   }
-  onFileUpload(files: FileList) {
-    this.updateForm.displaypic = files.item(0);
-    console.log(this.updateForm.displaypic);
-  }
+  // onFileUpload(files: FileList) {
+  //   this.updateForm.displaypic = files.item(0);
+  //   console.log(this.updateForm.displaypic);
+  // }
+  // uploadFileToActivity() {
+  //   UserService.postFile(this.selectedFile).subscribe(data => {
+  //     console.log('Upload Successful');
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  // }
   onClick() {
     this.online = true;
   }

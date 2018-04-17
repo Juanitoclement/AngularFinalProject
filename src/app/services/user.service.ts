@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SignIn } from '../SignIn';
 
 import 'rxjs/add/operator/map';
-
+import { Observable} from 'rxjs/Rx';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -11,6 +11,7 @@ const httpOptions = {
     'Authorization': `Bearer ${localStorage.token}`
   }),
 };
+
 
 @Injectable()
 export class UserService {
@@ -58,14 +59,32 @@ export class UserService {
         return res;
       });
   }
-  postUpdate(updateForm) {
+  postUpdate(updateForm){
     const url = 'http://localhost:8000/api/update';
     return this.http.post<any>(url, updateForm, httpOptions).map(res => {
       console.log(res);
-      console.log(updateForm.displaypic);
       console.log(updateForm.name);
     });
   }
+  updatepic( file : File)
+  {
+    // console.log('from service: ',formdata.getAll('displaypic'));
+    const url = 'http://localhost:8000/api/updateDisplayPic';
+    return this.http.post<any>(url, file,httpOptions).map(res => {
+      console.log(res);
+      //console.log(formdata.getAll('displaypic'));
+    });
+  }
+//
+//   postFile(selectedFile: File): Observable<boolean> {
+//     const endpoint = 'http://localhost:8000/api/update';
+//     const formData: FormData = new FormData();
+//     formData.append('fileKey', fileToUpload, fileToUpload.name);
+//     return this.httpClient
+//       .post(endpoint, formData, { headers: yourHeadersConfig })
+//       .map(() => { return true; })
+//       .catch((e) => this.handleError(e));
+// }
   logout() {
     const url = 'http://localhost:8000/api/logout';
       localStorage.removeItem('token');

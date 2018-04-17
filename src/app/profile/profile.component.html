@@ -64,7 +64,22 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="UploadPhoto">Upload photo</label>
             <div class="col-md-4">
-              <input id="UploadPhoto" name="UploadPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)">
+              <!-- <input id="UploadPhoto" name="UploadPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)"> -->
+              <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                <span></span>
+              </file-drop>
+              <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of files; let i=index">
+                    <td><strong>{{ item.relativePath }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
             </div>
           </div>
           <!-- Bio input -->
@@ -87,7 +102,7 @@
       </form>
     </div>
     <div class="col-md-2 hidden-xs">
-      <img src="http://localhost/gg /storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
+      <img src="http://localhost/auth2/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
     </div>
   </div>
 
