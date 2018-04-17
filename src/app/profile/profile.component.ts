@@ -2,13 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../User';
 import 'rxjs/add/operator/map';
-import {ActivatedRoute} from '@angular/router';
-import {Doggies} from '../doggies';
+import { ActivatedRoute } from '@angular/router';
+import { Doggies } from '../doggies';
 import { UploadEvent, UploadFile } from 'ngx-file-drop';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { FileSystemFileEntry, FileSystemEntryMetadata, FileSystemEntry, FileSystemDirectoryEntry }from 'ngx-file-drop';
-import { FormsModule } from '@angular/forms';
+import { FileSystemFileEntry } from 'ngx-file-drop';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -24,13 +22,13 @@ export class ProfileComponent implements OnInit {
   pid: any;
   tarid: any;
   currid: any;
-  uname: any;
-  uemail: any;
-  ubio: any;
-  uusername: any;
   display: any;
   public files: UploadFile[] = [];
-  relativePath:string;
+  relativePath: string;
+  public doggies: Doggies[];
+  constructor(private user: UserService, private route: ActivatedRoute ) {
+  }
+  @Input() updateForm: User; doggiesForm: Doggies ;
 
   public dropped(event: UploadEvent) {
     this.files = event.files;
@@ -39,15 +37,15 @@ export class ProfileComponent implements OnInit {
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry ;
-          //
-          // var formData = new FormData();
-          // formData.append('key1', 'value1');
-          // formData.append('key2', 'value2');
-          // console.log("hello");
-          // for (var pair of formData.entries()) {
-          //     console.log("helloww");
-          //     console.log(pair[0]+ ', ' + pair[1]);
-          // }
+        //
+        // var formData = new FormData();
+        // formData.append('key1', 'value1');
+        // formData.append('key2', 'value2');
+        // console.log("hello");
+        // for (var pair of formData.entries()) {
+        //     console.log("helloww");
+        //     console.log(pair[0]+ ', ' + pair[1]);
+        // }
 
 
         fileEntry.file((file: File) => {
@@ -56,13 +54,13 @@ export class ProfileComponent implements OnInit {
           console.log(droppedFile.relativePath, file);
 
           // You could upload it like this:
-          var formData = new FormData();
+          const formData = new FormData();
           // formData.append('displaypic',file);
           // Headers
 
-          for(const key in file){
-            formData.append(key, file[key]);
-          }
+          // for (const key in file) {
+          //   formData.append(key, file[key]);
+          // }
           console.log(formData.getAll('key'));
 
           this.user.updatepic(file).subscribe();
@@ -80,26 +78,14 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
-  public fileOver(event){
+  public fileOver(event) {
     console.log(event);
   }
 
-  public fileLeave(event){
+  public fileLeave(event) {
     console.log(event);
   }
-
-
-
-  display: any;
-  public doggies: Doggies[];
-  constructor(private user: UserService, private route: ActivatedRoute,private http: HttpClient) {
-  }
-  @Input() updateForm: User; doggiesForm: Doggies ;
-
   profile() {
-
-
-
     this.user.getLoginInId().subscribe(resp => {
       this.currid = resp['id'];
     });
@@ -129,19 +115,8 @@ export class ProfileComponent implements OnInit {
       () => { console.log('Update Successful'); alert('Update Succesful'); },
     );
   }
-<<<<<<< HEAD
-  // onFileUpload(files: FileList) {
-  //   this.updateForm.displaypic = files.item(0);
-  //   console.log(this.updateForm.displaypic);
-  // }
-  // uploadFileToActivity() {
-  //   UserService.postFile(this.selectedFile).subscribe(data => {
-  //     console.log('Upload Successful');
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  // }
-=======
+
+
   submitDoggie() {
     this.user.addDoggie(this.doggiesForm).subscribe(
       () => console.log('doggiesForm is filled'),
@@ -166,11 +141,7 @@ export class ProfileComponent implements OnInit {
       () => { console.log('Update Successful'); alert('Succesfully update doggie'); },
     );
   }
-  onFileUpload(files: FileList) {
-    this.updateForm.displaypic = files.item(0);
-    console.log(this.updateForm.displaypic);
-  }
->>>>>>> 1a013e8f7e17e1e46a8c836549e018a5941edaa2
+
   onClick() {
     this.online = true;
     this.view = false;
