@@ -1,4 +1,5 @@
 export class Doggies {
+  id: number;
   name: string;
   age: number;
   desc: string;

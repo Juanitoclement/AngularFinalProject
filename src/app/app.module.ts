@@ -17,6 +17,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
+import { DogComponent } from './dog/dog.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {UserService} from './services/user.service';
     RegisterComponent,
     NavigationBarComponent,
     ProfileComponent,
+    DogComponent,
   ],
   imports: [
     BrowserModule,

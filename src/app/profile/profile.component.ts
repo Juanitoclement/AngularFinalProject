@@ -12,37 +12,32 @@ import {Doggies} from '../doggies';
 })
 export class ProfileComponent implements OnInit {
   online: boolean;
+  online2: boolean;
+  online3: boolean;
   view: boolean;
   edit: boolean;
   uid: any;
+  pid: any;
   tarid: any;
   currid: any;
-  uname: any;
-  uemail: any;
-  ubio: any;
-  uusername: any;
-  display: any;
-  selectedFile: File = null;
 
+  display: any;
   public doggies: Doggies[];
   constructor(private user: UserService, private route: ActivatedRoute) {
   }
-  @Input() updateForm: User;
+  @Input() updateForm: User; doggiesForm: Doggies ;
 
   profile() {
     this.user.getLoginInId().subscribe(resp => {
       this.currid = resp['id'];
-      console.log(this.currid);
-      console.log(this.uid);
     });
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.user.getProfile(this.uid).subscribe(resp => {
-        this.uemail = resp['email'],
-        this.uname = resp['name'],
-        this.tarid = resp['id'] ,
-        this.ubio = resp['bio'],
-        this.uusername = resp['username'],
-        this.display = resp['displaypic'];
+         this.updateForm.name = resp['name'] ;
+         this.updateForm.bio = resp['bio'];
+         this.updateForm.email = resp['email'];
+         this.tarid = resp['id'] ,
+         this.display = resp['displaypic'];
       if (this.tarid !== this.currid) {
         console.log('View Mode');
         this.edit = false;
@@ -53,8 +48,6 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.user.getProfile(this.uid).subscribe((doggies: Doggies[]) => {
       this.doggies  = doggies['doggies'] ;
-
-      console.log(this.doggies );
     });
   }
   submitUpdate() {
@@ -64,22 +57,70 @@ export class ProfileComponent implements OnInit {
       () => { console.log('Update Successful'); alert('Update Succesful'); },
     );
   }
+  submitDoggie() {
+    this.user.addDoggie(this.doggiesForm).subscribe(
+      () => console.log('doggiesForm is filled'),
+      err => { console.error(err); alert('Add Doggie Unsuccesful'); this.ngOnInit(); },
+      () => { console.log('Add Successful'); alert('Succesfully added doggie'); },
+    );
+  }
+  deleteDoggie(id: number) {
+    this.pid = id;
+    this.user.deleteDoggie(this.pid).subscribe(
+      () => console.log('doggiesForm is selected'),
+      err => { console.error(err); alert('Deleting Doggie is Unsuccesful'); this.ngOnInit(); },
+      () => { console.log('Delete Successful'); alert('Succesfully deleted doggie'); },
+    );
+  }
+  updateDoggie(id: number) {
+    this.pid = id;
+    console.log(this.pid);
+    this.user.updateDoggie(this.pid, this.doggiesForm).subscribe(
+      () => console.log('doggiesForm is selected'),
+      err => { console.error(err); alert('Updating Doggie is Unsuccesful'); this.ngOnInit(); },
+      () => { console.log('Update Successful'); alert('Succesfully update doggie'); },
+    );
+  }
   onFileUpload(files: FileList) {
     this.updateForm.displaypic = files.item(0);
     console.log(this.updateForm.displaypic);
   }
   onClick() {
     this.online = true;
+    this.view = false;
+    this.online2 = false;
   }
   offClick() {
     this.online = false;
+    this.online2 = false;
+    this.view = false;
+  }
+  viewPet() {
+    this.view = true;
+    this.online = false;
+    this.online2 = false;
+  }
+  addPet() {
+    this.online2 = true;
+    this.view = false;
+    this.online = false;
+  }
+  editPet(id: number, name: any, desc: any, gender: any, breed: any, age: any) {
+    this.doggiesForm.id = id;
+    this.doggiesForm.name = name;
+    this.doggiesForm. desc = desc;
+    this.doggiesForm.gender = gender;
+    this.doggiesForm.breed = breed;
+    this.doggiesForm.age = age;
+    this.online2 = false;
+    this.online3 = true;
+    this.view = false;
   }
   ngOnInit() {
     this.doggieProfile();
     this.profile();
     this.updateForm = new User();
-    this.updateForm.name = '';
-    this.updateForm.bio = '';
+    this.doggiesForm =  new Doggies();
   }
 
 }

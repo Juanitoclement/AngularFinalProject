@@ -5,6 +5,7 @@ import { LoginComponent} from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { environment } from '../../environments/environment';
 import instantsearch from 'instantsearch.js/dist-es5-module/src/lib/main';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -18,10 +19,12 @@ export class NavigationBarComponent implements OnInit {
   search: any;
   loggedIn: boolean;
   loggedOut: boolean;
+  id: number;
 
   constructor(
     private user: UserService,
     public dialog: MatDialog,
+    private router: Router,
   ) {}
   public data: string;
 
@@ -53,6 +56,9 @@ export class NavigationBarComponent implements OnInit {
     } else {
       this.data = ' Guest';
     }
+    this.user.getLoginInId().subscribe(resp => {
+      this.id = resp['id'];
+    });
   }
   checkAuth() {
     // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -94,7 +100,7 @@ export class NavigationBarComponent implements OnInit {
                         <div class="hitcontentitems"><font size='1'>{{{followers}}} followers</font> </div>
                         <div class="hitcontentitems">
                           <div class='doggies'><img class="dog_img" src=http://localhost/gg/storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
-                          <div class='doggies'><font size='2'> {{#dog}} <a href="#" class="dogbutton dogs" style="text-decoration: none;"> {{{dogname}}}</a> {{/dog}}</font></div>
+                          <div class='doggies'><font size='2'> {{#dog}} <a href="/profile/dog/{{{dog-id}}}" class="dogbutton dogs" style="text-decoration: none;"> {{{dog-id}}} {{{dogname}}}</a> {{/dog}}</font></div>
                         </div>
                       </div>
                   </div>
