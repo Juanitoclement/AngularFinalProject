@@ -72,7 +72,7 @@ export class UserService {
     const url = 'http://localhost:8000/api/updateDisplayPic';
     return this.http.post<any>(url, file,httpOptions).map(res => {
       console.log(res);
-      //console.log(formdata.getAll('displaypic'));
+      console.log(formdata.getAll('displaypic')); //ini aja uda bsa . ada filenya .
     });
   }
 //
