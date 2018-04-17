@@ -62,6 +62,8 @@ export class UserService {
     const url = 'http://localhost:8000/api/update';
     return this.http.post<any>(url, updateForm, httpOptions).map(res => {
       console.log(res);
+      console.log(updateForm.displaypic);
+      console.log(updateForm.name);
     });
   }
   logout() {

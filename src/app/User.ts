@@ -1,5 +1,5 @@
 export class User {
   name: string;
-  bio: string
-  userDisplaypic: string;
+  bio: string;
+  displaypic: File;
 }

@@ -100,8 +100,8 @@ export class NavigationBarComponent implements OnInit {
                   </div>
                   `,
         },
-        //ganti css buat item di styles.css
-        //href="/profile/{{{objectID}}}"
+        // ganti css buat item di styles.css
+        // href="/profile/{{{objectID}}}"
 
         escapeHits: true
       })
