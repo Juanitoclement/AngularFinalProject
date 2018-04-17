@@ -22,17 +22,13 @@ export class ProfileComponent implements OnInit {
   ubio: any;
   uusername: any;
   display: any;
+  selectedFile: File = null;
 
-  pname: any;
-  page: any;
-  pdesc: any;
-  pgender: any;
-  display2: any;
-  dog_array: any[];
   public doggies: Doggies[];
   constructor(private user: UserService, private route: ActivatedRoute) {
   }
   @Input() updateForm: User;
+
   profile() {
     this.user.getLoginInId().subscribe(resp => {
       this.currid = resp['id'];
@@ -52,26 +48,25 @@ export class ProfileComponent implements OnInit {
         this.edit = false;
       }  else { this.edit = true; }
     });
-
   }
   doggieProfile() {
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.user.getProfile(this.uid).subscribe((doggies: Doggies[]) => {
       this.doggies  = doggies['doggies'] ;
-      // this.pname = resp['doggies'][0]['name'],
-      // this.page = resp['doggies'][0]['age'],
-      // this.pgender = resp['doggies'][0]['gender'],
-      // this.display2 = resp['doggies'][0]['displaypic'],
-      // this.pdesc =  resp['doggies'][0]['desc'];
+
       console.log(this.doggies );
     });
-    }
+  }
   submitUpdate() {
     this.user.postUpdate(this.updateForm).subscribe(
       () => console.log('Updateform is filled'),
       err => { console.error(err); alert('Update Unsuccesful'); this.ngOnInit(); },
       () => { console.log('Update Successful'); alert('Update Succesful'); },
     );
+  }
+  onFileUpload(files: FileList) {
+    this.updateForm.displaypic = files.item(0);
+    console.log(this.updateForm.displaypic);
   }
   onClick() {
     this.online = true;

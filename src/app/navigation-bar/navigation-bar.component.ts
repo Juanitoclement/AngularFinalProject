@@ -93,15 +93,15 @@ export class NavigationBarComponent implements OnInit {
                         <div class="hitcontentitems"><strong>{{{_highlightResult.username.value}}}</strong> </div>
                         <div class="hitcontentitems"><font size='1'>{{{followers}}} followers</font> </div>
                         <div class="hitcontentitems">
-                          <div class='doggies'><img class="dog_img" src=http://localhost/gg /storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
+                          <div class='doggies'><img class="dog_img" src=http://localhost/gg/storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
                           <div class='doggies'><font size='2'> {{#dog}} <a href="#" class="dogbutton dogs" style="text-decoration: none;"> {{{dogname}}}</a> {{/dog}}</font></div>
                         </div>
                       </div>
                   </div>
                   `,
         },
-        //ganti css buat item di styles.css
-        //href="/profile/{{{objectID}}}"
+        // ganti css buat item di styles.css
+        // href="/profile/{{{objectID}}}"
 
         escapeHits: true
       })
