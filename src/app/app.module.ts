@@ -17,6 +17,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
+import { DogComponent } from './dog/dog.component';
 
 import { FileDropModule } from 'ngx-file-drop';
 
@@ -30,6 +31,7 @@ import { FileDropModule } from 'ngx-file-drop';
     RegisterComponent,
     NavigationBarComponent,
     ProfileComponent,
+    DogComponent,
   ],
   imports: [
     BrowserModule,

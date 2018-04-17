@@ -52,7 +52,7 @@ export class UserService {
       return res;
     });
   }
-  getProfile( id: number) {
+  getProfile( id: number ) {
       const url = 'http://localhost:8000/api/profile/' + id;
       return this.http.get(url, httpOptions).map(res => {
         console.log(res);
@@ -75,16 +75,35 @@ export class UserService {
       console.log(formdata.getAll('displaypic')); //ini aja uda bsa . ada filenya .
     });
   }
-//
-//   postFile(selectedFile: File): Observable<boolean> {
-//     const endpoint = 'http://localhost:8000/api/update';
-//     const formData: FormData = new FormData();
-//     formData.append('fileKey', fileToUpload, fileToUpload.name);
-//     return this.httpClient
-//       .post(endpoint, formData, { headers: yourHeadersConfig })
-//       .map(() => { return true; })
-//       .catch((e) => this.handleError(e));
-// }
+  addDoggie(doggieForm) {
+    const url = 'http://localhost:8000/api/addDoggie';
+    return this.http.post<any>(url, doggieForm, httpOptions).map(res => {
+      console.log(res);
+    });
+  }
+  deleteDoggie( id: number ) {
+    const url = 'http://localhost:8000/api/delete/' + id;
+    return this.http.delete(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
+  updateDoggie( id: number, doggieForm) {
+    console.log(id);
+    console.log(doggieForm);
+    const url = 'http://localhost:8000/api/update/' + id;
+    return this.http.post(url, doggieForm, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
+  getDoggie(id: number) {
+    const url = 'http://localhost:8000/api/getDogProfile/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
   logout() {
     const url = 'http://localhost:8000/api/logout';
       localStorage.removeItem('token');
