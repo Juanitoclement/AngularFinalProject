@@ -22,6 +22,7 @@ import { FileDropModule } from 'ngx-file-drop';
 import { AddpetComponent } from './addpet/addpet.component';
 import { DogprofileComponent } from './dogprofile/dogprofile.component';
 import { EditpetComponent } from './editpet/editpet.component';
+import { AddpostComponent } from './addpost/addpost.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EditpetComponent } from './editpet/editpet.component';
     AddpetComponent,
     DogprofileComponent,
     EditpetComponent,
+    AddpostComponent,
   ],
   imports: [
     BrowserModule,

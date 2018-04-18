@@ -3,5 +3,6 @@ export class User {
   bio: string;
   email: string;
   displaypic: File;
+  id: any;
 
 }

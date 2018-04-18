@@ -100,7 +100,9 @@ export class ProfileComponent implements OnInit {
          this.updateForm.email = resp['email'];
          this.tarid = resp['id'];
          this.display = resp['displaypic'];
+         console.log(this.currid);
       if (this.tarid !== this.currid) {
+        console.log(this.currid);
         console.log('View Mode');
         this.edit = false;
       }  else { this.edit = true; }
@@ -129,11 +131,13 @@ export class ProfileComponent implements OnInit {
     this.online = true;
     this.view = false;
     this.online2 = false;
+    this.noDog = true;
   }
   offClick() {
     this.online = false;
     this.online2 = false;
     this.view = false;
+    this.noDog = false;
   }
   addPet() {
     this.online2 = true;

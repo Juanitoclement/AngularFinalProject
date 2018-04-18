@@ -15,6 +15,7 @@
 
 <div class="main-content">
   <div class="container">
+    <button style="width: 150px" routerLink="/profile/{{this.owner}}">Go back to "{{this.userForm.name}}'s" Profile</button>
     <h3 class="site-title">Dog Profile</h3>
     <div class="row">
       <div class="col-md-9">
@@ -29,8 +30,9 @@
                 <h5><strong>Age: </strong>{{this.dogAge}}</h5>
                 <h5><strong>Gender: </strong>{{this.dogGender}}</h5>
                 <h5><strong>Breed: </strong>{{this.dogBreed}}</h5>
-                <button class="btn btn-success btn-md pull-center" type="submit">Add Post</button>
-                <button class="btn btn-success btn-md pull-center" type="submit" (click)="openDialog()">Edit</button>
+                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit">Add Post</button>
+                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="openDialog()">Edit</button>
+                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()" routerLink="/profile/{{this.owner}}">Delete</button>
               </div>
             </div>
           </div>

@@ -8,8 +8,7 @@ import {Doggies} from '../doggies';
   styleUrls: ['./addpet.component.css']
 })
 export class AddpetComponent implements OnInit {
-  online: boolean;
-
+  currid: any;
   constructor(
     private user: UserService,
   ) { }
@@ -20,10 +19,17 @@ export class AddpetComponent implements OnInit {
     this.user.addDoggie(this.doggiesForm).subscribe(
       () => console.log('doggiesForm is filled'),
       err => { console.error(err); alert('Add Doggie Unsuccesful'); },
-      () => { console.log('Add Successful'); alert('Succesfully added doggie'); },
+      () => { console.log('Add Successful'); alert('Succesfully added doggie');  },
     );
+  }
+  profile() {
+    this.user.getLoginInId().subscribe(resp => {
+      this.currid = resp['id'];
+      console.log(this.currid);
+    });
   }
   ngOnInit() {
     this.doggiesForm = new Doggies();
+    this.profile();
   }
 }
