@@ -17,9 +17,11 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
-import { DogComponent } from './dog/dog.component';
 
 import { FileDropModule } from 'ngx-file-drop';
+import { AddpetComponent } from './addpet/addpet.component';
+import { DogprofileComponent } from './dogprofile/dogprofile.component';
+import { EditpetComponent } from './editpet/editpet.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { FileDropModule } from 'ngx-file-drop';
     RegisterComponent,
     NavigationBarComponent,
     ProfileComponent,
-    DogComponent,
+    AddpetComponent,
+    DogprofileComponent,
+    EditpetComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,8 @@ import { FileDropModule } from 'ngx-file-drop';
     ReactiveFormsModule,
     FileDropModule,
   ],
-  providers: [UserService,],
+  entryComponents: [EditpetComponent],
+  providers: [UserService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

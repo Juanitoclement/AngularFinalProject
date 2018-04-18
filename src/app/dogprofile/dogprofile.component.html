@@ -1,0 +1,41 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--new -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<div class="main-content">
+  <div class="container">
+    <h3 class="site-title">Dog Profile</h3>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="panel">
+          <div class=" panel-body ">
+            <div class="col-md-5" style="margin-bottom: 30px">
+              <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.dogDisplay}}" style="width:50%;">
+              <i class="fa fa-wrench"> Edit Profile</i>
+              <div class=" clearfix">
+                <h1>{{this.dogName}}</h1>
+                <h4><strong>Description: </strong>{{this.dogDesc}}</h4>
+                <h5><strong>Age: </strong>{{this.dogAge}}</h5>
+                <h5><strong>Gender: </strong>{{this.dogGender}}</h5>
+                <h5><strong>Breed: </strong>{{this.dogBreed}}</h5>
+                <button class="btn btn-success btn-md pull-center" type="submit">Add Post</button>
+                <button class="btn btn-success btn-md pull-center" type="submit" (click)="openDialog()">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

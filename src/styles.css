@@ -117,11 +117,11 @@ header img {
 
 }
 .hit {
-  font-size: 20;
+  font-size: 20px;
   padding: 0;
   border-bottom: 1px solid #eee;
 }
-  
+
 .hit-name {
   margin: 0;
 }

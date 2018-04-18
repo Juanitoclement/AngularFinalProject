@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Doggies } from '../doggies';
 import { UploadEvent, UploadFile } from 'ngx-file-drop';
 import { FileSystemFileEntry } from 'ngx-file-drop';
+import {MatDialog} from '@angular/material';
+import {AddpetComponent} from '../addpet/addpet.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,20 +17,23 @@ import { FileSystemFileEntry } from 'ngx-file-drop';
 export class ProfileComponent implements OnInit {
   online: boolean;
   online2: boolean;
-  online3: boolean;
+  noDog: boolean;
   view: boolean;
   edit: boolean;
   uid: any;
-  pid: any;
   tarid: any;
   currid: any;
   display: any;
   public files: UploadFile[] = [];
   relativePath: string;
   public doggies: Doggies[];
-  constructor(private user: UserService, private route: ActivatedRoute ) {
-  }
-  @Input() updateForm: User; doggiesForm: Doggies ;
+
+  constructor(
+    private user: UserService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+  ) { }
+  @Input() updateForm: User;
 
   public dropped(event: UploadEvent) {
     this.files = event.files;
@@ -46,7 +51,6 @@ export class ProfileComponent implements OnInit {
         //     console.log("helloww");
         //     console.log(pair[0]+ ', ' + pair[1]);
         // }
-
 
         fileEntry.file((file: File) => {
 
@@ -94,7 +98,7 @@ export class ProfileComponent implements OnInit {
          this.updateForm.name = resp['name'] ;
          this.updateForm.bio = resp['bio'];
          this.updateForm.email = resp['email'];
-         this.tarid = resp['id'] ,
+         this.tarid = resp['id'];
          this.display = resp['displaypic'];
       if (this.tarid !== this.currid) {
         console.log('View Mode');
@@ -106,6 +110,12 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.user.getProfile(this.uid).subscribe((doggies: Doggies[]) => {
       this.doggies  = doggies['doggies'] ;
+      if (this.doggies.length === 0 ) {
+        this.noDog = true;
+        console.log(this.noDog);
+      } else {
+        this.noDog = false;
+      }
     });
   }
   submitUpdate() {
@@ -115,33 +125,6 @@ export class ProfileComponent implements OnInit {
       () => { console.log('Update Successful'); alert('Update Succesful'); },
     );
   }
-
-
-  submitDoggie() {
-    this.user.addDoggie(this.doggiesForm).subscribe(
-      () => console.log('doggiesForm is filled'),
-      err => { console.error(err); alert('Add Doggie Unsuccesful'); this.ngOnInit(); },
-      () => { console.log('Add Successful'); alert('Succesfully added doggie'); },
-    );
-  }
-  deleteDoggie(id: number) {
-    this.pid = id;
-    this.user.deleteDoggie(this.pid).subscribe(
-      () => console.log('doggiesForm is selected'),
-      err => { console.error(err); alert('Deleting Doggie is Unsuccesful'); this.ngOnInit(); },
-      () => { console.log('Delete Successful'); alert('Succesfully deleted doggie'); },
-    );
-  }
-  updateDoggie(id: number) {
-    this.pid = id;
-    console.log(this.pid);
-    this.user.updateDoggie(this.pid, this.doggiesForm).subscribe(
-      () => console.log('doggiesForm is selected'),
-      err => { console.error(err); alert('Updating Doggie is Unsuccesful'); this.ngOnInit(); },
-      () => { console.log('Update Successful'); alert('Succesfully update doggie'); },
-    );
-  }
-
   onClick() {
     this.online = true;
     this.view = false;
@@ -152,32 +135,25 @@ export class ProfileComponent implements OnInit {
     this.online2 = false;
     this.view = false;
   }
-  viewPet() {
-    this.view = true;
-    this.online = false;
-    this.online2 = false;
-  }
   addPet() {
     this.online2 = true;
     this.view = false;
     this.online = false;
   }
-  editPet(id: number, name: any, desc: any, gender: any, breed: any, age: any) {
-    this.doggiesForm.id = id;
-    this.doggiesForm.name = name;
-    this.doggiesForm. desc = desc;
-    this.doggiesForm.gender = gender;
-    this.doggiesForm.breed = breed;
-    this.doggiesForm.age = age;
-    this.online2 = false;
-    this.online3 = true;
-    this.view = false;
+  openDialog(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(AddpetComponent, {
+      height: '500px',
+      width: '700x',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
   ngOnInit() {
     this.doggieProfile();
     this.profile();
     this.updateForm = new User();
-    this.doggiesForm =  new Doggies();
   }
 
 }

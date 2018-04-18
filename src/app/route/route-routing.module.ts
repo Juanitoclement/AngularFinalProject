@@ -5,7 +5,8 @@ import { RegisterComponent } from '../register/register.component';
 import { AuthGuard } from '../auth.guard';
 import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { DogComponent } from '../dog/dog.component';
+import {AddpetComponent} from '../addpet/addpet.component';
+import {DogprofileComponent} from '../dogprofile/dogprofile.component';
 
 
 const routes: Routes = [
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'addPet', component: AddpetComponent },
   { path: 'profile/:id', component: ProfileComponent },
-  { path: 'profile/dog/:id', component: DogComponent },
+  { path: 'dogprofile/:id', component: DogprofileComponent },
   // :id buat kasih tau kl itu variable
   { path: '**', redirectTo: '' },
 

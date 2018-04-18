@@ -94,13 +94,13 @@ export class NavigationBarComponent implements OnInit {
         templates: {
           empty: 'No results',
           item: `<div class="hit">
-                      <div class="hit-image"><a href="/profile/{{{objectID}}}"><img src=http://localhost/auth2/storage/app/public/images/{{displaypic}} width="70px" height="70px"></a></div>
+                      <div class="hit-image"><a href="/profile/{{{objectID}}}"><img src=http://localhost/gg/storage/app/public/images/{{displaypic}} width="70px" height="70px"></a></div>
                       <div class="hit-content">
                         <div class="hitcontentitems"><strong>{{{_highlightResult.username.value}}}</strong> </div>
                         <div class="hitcontentitems"><font size='1'>{{{followers}}} followers</font> </div>
                         <div class="hitcontentitems">
                           <div class='doggies'><img class="dog_img" src=http://localhost/gg/storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
-                          <div class='doggies'><font size='2'> {{#dog}} <a href="/profile/dog/{{{dog-id}}}" class="dogbutton dogs" style="text-decoration: none;"> {{{dog-id}}} {{{dogname}}}</a> {{/dog}}</font></div>
+                          <div class='doggies'><font size='2'> {{#dog}} <a href="/dogprofile/{{{dog-id}}}" class="dogbutton dogs" style="text-decoration: none;"> {{{dog-id}}} {{{dogname}}}</a> {{/dog}}</font></div>
                         </div>
                       </div>
                   </div>

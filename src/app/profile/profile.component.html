@@ -5,44 +5,63 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>User profile form requirement</title>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
-  <!-- Bootstrap Core CSS -->
-  <!--     <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+<!--new -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-
 <body>
-<div class="container">
-  <div class="card">
+<div class="main-content">
+  <div class="container">
+    <h3 class="site-title">My Profile</h3>
+    <div class="row">
+      <div class="col-md-9">
+          <div class="panel">
+                <div class=" panel-body ">
+                  <div class="col-md-5" style="margin-bottom: 30px">
+                    <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.display}}" style="width:50%;">
+                    <i class="fa fa-wrench" (click)="onClick()" *ngIf="edit"> Edit Profile</i>
+                    <div class=" clearfix">
+                      <h2>{{this.updateForm.name}}</h2>
+                      <h4>{{this.updateForm.email}}</h4>
+                      <h5>BIO: {{this.updateForm.bio}}</h5>
+                      <button class="btn btn-success btn-md pull-center" type="submit" (click)="openDialog()" *ngIf="edit">Add Pet</button>
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="profile-block">
+                      <ul class="list-group">
+                        <li class="list-group-item">Followers <span class="badge">12</span></li>
+                        <li class="list-group-item">Following<span class="badge">5</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div [hidden]="this.noDog">
+                    <div class="col-md-12 outerdiv" *ngFor="let dog of doggies">
+                      <div style="float: left;">
+                        <img src="http://localhost/gg/storage/app/public/images/{{dog.displaypic}}" style="width: 150px;">
+                      </div>
+                      <ul class="list-inline" style="height: 220px; margin-left: 200px;">
+                        <li><h3><strong>Name: </strong>{{dog.name}}  <a href onclick="return false" routerLink="/dogprofile/{{dog.id}}"><i class="fa fa-wrench" *ngIf="edit">View Profile</i></a></h3></li><br>
+                        <li><h4><strong>Desc: </strong>{{dog.desc}}</h4></li><br>
+                        <li><h4><strong>Gender: </strong>{{dog.gender}}</h4></li><br>
+                        <li><h4><strong>Age: </strong>{{dog.age}}</h4></li>
+                      </ul>
+                      <hr >
+                    </div>
 
-    <img src="http://localhost/auth2/storage/app/public/images/{{this.display}}" alt="John" style="width:100%">
-    <p class="title">NAME : {{this.updateForm.name}}</p>
-    <p>EMAIL : {{this.updateForm.email}}</p>
-    <p>BIO : {{this.updateForm.bio}}</p>
-    <p>
-      <button type="submit" (click)="onClick()" *ngIf="edit">Edit</button>
-      <button type="submit" (click)="addPet()" *ngIf="edit" >Add Pet</button>
-      <button type="submit" (click)="viewPet()" *ngIf="edit">View Pet</button>
-    </p>
+                  <div [hidden]="!this.noDog">
+                    <p>Please tell {{updateForm.name}} to adopt a doggie :((</p>
+                  </div>
+                </div>
+              </div>
 
-  </div>
-</div>
-<div class="container" [hidden]="!view">
-  <div class="card" *ngFor="let dog of doggies">
-    <img src="http://localhost/auth2/storage/app/public/images/{{dog.displaypic}}" alt="John" style="width:100%">
-    <p class="title">Dog NAME : {{dog.name}}</p>
-    <p>Description : {{dog.desc}}</p>
-    <p><button type="submit" (click)="editPet(dog.id, dog.name, dog.desc, dog.gender, dog.breed, dog.age)" *ngIf="edit">Edit</button><button type="submit" (click)="deleteDoggie(dog.id)"  *ngIf="edit">Delete</button></p>
-  </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 
 <div [hidden] = "!online">
@@ -67,7 +86,7 @@
           </div>
           <!-- File Button -->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="UploadPhoto">Upload photo</label>
+            <label class="col-md-4 control-label">Upload photo</label>
             <div class="col-md-4">
               <!-- <input id="UploadPhoto" name="UploadPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)"> -->
               <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
@@ -107,163 +126,13 @@
       </form>
     </div>
     <div class="col-md-2 hidden-xs">
-      <img src="http://localhost/auth2/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
+      <img src="http://localhost/gg/storage/app/public/images/{{this.display}}" class="img-responsive img-thumbnail ">
     </div>
   </div>
 
-<div [hidden] = "!online2">
-  <div class="col-md-10 profile-form">
-    <form class="form-horizontal" (ngSubmit)="submitDoggie()" #petForm="ngForm">
-      <!-- Form Name -->
-      <legend>Add Pet</legend>
-       <!--Name input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petname">Dog's Name</label>
-        <div class="col-md-4">
-          <div class="input-group">
-            <div class="input-group-addon">
-              <i class="fa fa-user">
-              </i>
-            </div>
-            <input type="text" class="form-control input-md" id="petname" required
-                   [(ngModel)]="doggiesForm.name" name="name"
-                   #name="ngModel">
-          </div>
-        </div>
-      </div>
-       <!--File Button-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="UploadPetPhoto">Upload photo</label>
-        <div class="col-md-4">
-          <input id="UploadPetPhoto" name="UploadPetPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)">
-        </div>
-      </div>
-      <!-- Desc input -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petdesc">Description (max 200 words)</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="petdesc" required
-                 [(ngModel)]="doggiesForm.desc" name="desc"
-                 #desc="ngModel">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petage">Dog's Age</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="petage" required
-                 [(ngModel)]="doggiesForm.age" name="age"
-                 #age="ngModel">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petbreed">Dog's Breed</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="petbreed" required
-                 [(ngModel)]="doggiesForm.breed" name="breed"
-                 #breed="ngModel">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petgender">Dog's Gender</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="petgender" required
-                 [(ngModel)]="doggiesForm.gender" name="gender"
-                 #gender="ngModel">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" ></label>
-        <div class="col-md-4">
-          <button type="submit" class="btn btn-success">Submit</button>
-          <button class="btn btn-danger"> Clear</button>
-          <button a href onclick="return false" class="btn" (click)="offClick()" value="">Exit</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-2 hidden-xs">
-    <img src="http://localhost/gg /storage/app/public/images/default2.jpg" class="img-responsive img-thumbnail ">
-  </div>
-</div>
-
-<div [hidden] = "!online3">
-  <div class="col-md-10 profile-form">
-    <form class="form-horizontal" (ngSubmit)="updateDoggie(this.doggiesForm.id)" #petForm="ngForm">
-      <!-- Form Name -->
-      <legend>Edit Pet</legend>
-      <!--Name input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="petname">Dog's Name</label>
-        <div class="col-md-4">
-          <div class="input-group">
-            <div class="input-group-addon">
-              <i class="fa fa-user">
-              </i>
-            </div>
-            <input type="text" class="form-control input-md" id="pet2name" required
-                   [(ngModel)]="doggiesForm.name" name="name"
-                   #name="ngModel" value="{{doggiesForm.name}}">
-          </div>
-        </div>
-      </div>
-      <!--File Button-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="UploadPet2Photo">Upload photo</label>
-        <div class="col-md-4">
-          <input id="UploadPet2Photo" name="UploadPetPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)">
-        </div>
-      </div>
-      <!-- Desc input -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="pet2desc">Description (max 200 words)</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="pet2desc" required
-                 [(ngModel)]="doggiesForm.desc" name="desc"
-                 #desc="ngModel" value="{{doggiesForm.desc}}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="pet2age">Dog's Age</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="pet2age" required
-                 [(ngModel)]="doggiesForm.age" name="age"
-                 #age="ngModel" value="{{doggiesForm.age}}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="pet2breed">Dog's Breed</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="pet2breed" required
-                 [(ngModel)]="doggiesForm.breed" name="breed"
-                 #breed="ngModel" value="{{doggiesForm.breed}}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="pet2gender">Dog's Gender</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" id="pet2gender" required
-                 [(ngModel)]="doggiesForm.gender" name="gender"
-                 #gender="ngModel" value="{{doggiesForm.gender}}">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label" ></label>
-        <div class="col-md-4">
-          <button type="submit" class="btn btn-success">Submit</button>
-          <button class="btn btn-danger"> Clear</button>
-          <button a href onclick="return false" class="btn" (click)="offClick()" value="">Exit</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-2 hidden-xs">
-    <img src="http://localhost/gg /storage/app/public/images/default2.jpg" class="img-responsive img-thumbnail ">
-  </div>
-</div>
 
 <!-- jQuery Version 1.11.1 -->
 <script src="js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-</body>
