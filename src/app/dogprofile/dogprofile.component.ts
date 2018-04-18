@@ -24,7 +24,6 @@ export class DogprofileComponent implements OnInit {
   dogDesc: any;
   owner: any;
   currid: any;
-  ownerName: any;
   constructor
   (
     private user: UserService,
@@ -61,24 +60,6 @@ export class DogprofileComponent implements OnInit {
     //  get user
     });
   }
-  // profile() {
-  //   this.user.getLoginInId().subscribe(resp => {
-  //     this.currid = resp['id'];
-  //   });
-  //   this.route.params.subscribe(params => this.uid = params['id'] );
-  //   this.user.getProfile(this.uid).subscribe(resp => {
-  //     this.updateForm.name = resp['name'] ;
-  //     this.updateForm.bio = resp['bio'];
-  //     this.updateForm.email = resp['email'];
-  //     this.tarid = resp['id'];
-  //     this.display = resp['displaypic'];
-  //     if (this.tarid !== this.currid) {
-  //       console.log(this.currid);
-  //       console.log('View Mode');
-  //       this.edit = false;
-  //     }  else { this.edit = true; }
-  //   });
-  // }
   openDialog(): void {
     this.dialog.closeAll();
     const dialogRef = this.dialog.open( EditpetComponent, {
