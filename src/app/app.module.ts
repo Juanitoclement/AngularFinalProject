@@ -17,6 +17,8 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
+import {PetService} from './services/pet.service';
+import {FileService} from './services/file.service';
 
 import { FileDropModule } from 'ngx-file-drop';
 import { AddpetComponent } from './addpet/addpet.component';
@@ -52,7 +54,7 @@ import { AddpostComponent } from './addpost/addpost.component';
     FileDropModule,
   ],
   entryComponents: [EditpetComponent],
-  providers: [UserService, ],
+  providers: [UserService, PetService, FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

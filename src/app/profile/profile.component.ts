@@ -8,6 +8,8 @@ import { UploadEvent, UploadFile } from 'ngx-file-drop';
 import { FileSystemFileEntry } from 'ngx-file-drop';
 import {MatDialog} from '@angular/material';
 import {AddpetComponent} from '../addpet/addpet.component';
+import {PetService} from '../services/pet.service';
+import {FileService} from '../services/file.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
   noDog: boolean;
   view: boolean;
   edit: boolean;
+  formData: FormData;
   uid: any;
   tarid: any;
   currid: any;
@@ -30,6 +33,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private user: UserService,
+    private fs: FileService,
+    private pet: PetService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
   ) { }
@@ -38,42 +43,16 @@ export class ProfileComponent implements OnInit {
   public dropped(event: UploadEvent) {
     this.files = event.files;
     for (const droppedFile of event.files) {
-
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry ;
-        //
-        // var formData = new FormData();
-        // formData.append('key1', 'value1');
-        // formData.append('key2', 'value2');
-        // console.log("hello");
-        // for (var pair of formData.entries()) {
-        //     console.log("helloww");
-        //     console.log(pair[0]+ ', ' + pair[1]);
-        // }
-
         fileEntry.file((file: File) => {
-
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
-
           // You could upload it like this:
-          const formData = new FormData();
-          // formData.append('displaypic',file);
-          // Headers
-
-          // for (const key in file) {
-          //   formData.append(key, file[key]);
-          // }
-          console.log(formData.getAll('key'));
-
-          this.user.updatepic(file).subscribe();
-          //
-          // this.http.post('http://localhost:8000/api/updateDisplayPic', formData, { headers: headers, responseType: 'blob' })
-          // .subscribe(data => {
-          //   console.log(formData.getAll('displaypic'));
-          // })
-
+          this.formData = new FormData();
+          this.formData.append('displaypic', file);
+          console.log(this.formData.getAll('displaypic'));
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
@@ -90,11 +69,11 @@ export class ProfileComponent implements OnInit {
     console.log(event);
   }
   profile() {
-    this.user.getLoginInId().subscribe(resp => {
+    this.pet.getLoginId().subscribe(resp => {
       this.currid = resp['id'];
     });
     this.route.params.subscribe(params => this.uid = params['id'] );
-    this.user.getProfile(this.uid).subscribe(resp => {
+    this.pet.getProfile(this.uid).subscribe(resp => {
          this.updateForm.name = resp['name'] ;
          this.updateForm.bio = resp['bio'];
          this.updateForm.email = resp['email'];
@@ -110,7 +89,7 @@ export class ProfileComponent implements OnInit {
   }
   doggieProfile() {
     this.route.params.subscribe(params => this.uid = params['id'] );
-    this.user.getProfile(this.uid).subscribe((doggies: Doggies[]) => {
+    this.pet.getProfile(this.uid).subscribe((doggies: Doggies[]) => {
       this.doggies  = doggies['doggies'] ;
       if (this.doggies.length === 0 ) {
         this.noDog = true;
@@ -122,9 +101,26 @@ export class ProfileComponent implements OnInit {
   }
   submitUpdate() {
     this.user.postUpdate(this.updateForm).subscribe(
-      () => console.log('Updateform is filled'),
-      err => { console.error(err); alert('Update Unsuccesful'); this.ngOnInit(); },
-      () => { console.log('Update Successful'); alert('Update Succesful'); },
+      () => console.log('Deleting'),
+      err => { console.error(err); alert('Update Doggie Unsuccesful'); this.ngOnInit(); },
+      () => { console.log('Update Successful'); alert('Succesfully update doggie');
+      });
+      this.fs.updatepic(this.formData).subscribe(
+        () => console.log('uploading'),
+        err => { console.error(err); alert(' Update DisplayPic Unsuccesful'); this.ngOnInit(); },
+        () => { console.log('Update Successful'); alert('Succesfully update displayPic'); this.online = false;
+        });
+  }
+  following() {
+    this.user.following().subscribe( res => {
+      this.updateForm.followings = res;
+      }
+    );
+  }
+  follower() {
+    this.user.follower().subscribe( res => {
+        this.updateForm.followers = res;
+      }
     );
   }
   onClick() {
@@ -155,6 +151,8 @@ export class ProfileComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.follower();
+    this.following();
     this.doggieProfile();
     this.profile();
     this.updateForm = new User();

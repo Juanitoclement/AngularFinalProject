@@ -6,6 +6,7 @@ import { RegisterComponent } from '../register/register.component';
 import { environment } from '../../environments/environment';
 import instantsearch from 'instantsearch.js/dist-es5-module/src/lib/main';
 import {Router} from '@angular/router';
+import {PetService} from '../services/pet.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -23,6 +24,7 @@ export class NavigationBarComponent implements OnInit {
 
   constructor(
     private user: UserService,
+    private pet: PetService,
     public dialog: MatDialog,
     private router: Router,
   ) {}
@@ -56,8 +58,9 @@ export class NavigationBarComponent implements OnInit {
     } else {
       this.data = ' Guest';
     }
-    this.user.getLoginInId().subscribe(resp => {
+    this.pet.getLoginId().subscribe(resp => {
       this.id = resp['id'];
+      console.log(this.id);
     });
   }
   checkAuth() {

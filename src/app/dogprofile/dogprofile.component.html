@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!--new -->
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -13,26 +13,67 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
-<div class="main-content">
-  <div class="container">
-    <button style="width: 150px" routerLink="/profile/{{this.owner}}">Go back to "{{this.userForm.name}}'s" Profile</button>
-    <h3 class="site-title">Dog Profile</h3>
-    <div class="row">
-      <div class="col-md-9">
-        <div class="panel">
-          <div class=" panel-body ">
-            <div class="col-md-5" style="margin-bottom: 30px">
-              <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.dogDisplay}}" style="width:50%;">
-              <i class="fa fa-wrench"> Edit Profile</i>
-              <div class=" clearfix">
-                <h1>{{this.dogName}}</h1>
-                <h4><strong>Description: </strong>{{this.dogDesc}}</h4>
-                <h5><strong>Age: </strong>{{this.dogAge}}</h5>
-                <h5><strong>Gender: </strong>{{this.dogGender}}</h5>
-                <h5><strong>Breed: </strong>{{this.dogBreed}}</h5>
-                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit">Add Post</button>
-                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="openDialog()">Edit</button>
-                <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()" routerLink="/profile/{{this.owner}}">Delete</button>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="main-content">
+        <div class="container">
+          <button style="width: 150px" routerLink="/profile/{{this.owner}}">Go back to "{{this.userForm.name}}'s" Profile</button>
+          <h3 class="site-title">Dog Profile</h3>
+          <div class="row">
+            <div class="col-md-9">
+              <div class="panel">
+                <div class=" panel-body ">
+                  <div class="col-md-5" style="margin-bottom: 30px">
+                    <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.dogDisplay}}" style="width:50%;">
+                    <i class="fa fa-wrench"> Edit Profile</i>
+                    <div class=" clearfix">
+                      <h1>{{this.dogName}}</h1>
+                      <h4><strong>Description: </strong>{{this.dogDesc}}</h4>
+                      <h5><strong>Age: </strong>{{this.dogAge}}</h5>
+                      <h5><strong>Gender: </strong>{{this.dogGender}}</h5>
+                      <h5><strong>Breed: </strong>{{this.dogBreed}}</h5>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit">Add Post</button>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="openDialog()">Edit</button>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()" routerLink="/profile/{{this.owner}}">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item" *ngFor="let dog of doggies">
+      <div class="main-content" >
+        <div class="container">
+          <button style="width: 150px" routerLink="/profile/{{this.owner}}">Go back to "{{this.userForm.name}}'s" Profile</button>
+          <h3 class="site-title">Dog Profile</h3>
+          <div class="row">
+            <div class="col-md-9">
+              <div class="panel">
+                <div class=" panel-body ">
+                  <div class="col-md-5" style="margin-bottom: 30px">
+                    <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{dog.displaypic}}" style="width:50%;">
+                    <i class="fa fa-wrench"> Edit Profile</i>
+                    <div class=" clearfix">
+                      <h1>{{dog.name}}</h1>
+                      <h4><strong>Description: </strong>{{dog.desc}}</h4>
+                      <h5><strong>Age: </strong>{{dog.age}}</h5>
+                      <h5><strong>Gender: </strong>{{dog.gender}}</h5>
+                      <h5><strong>Breed: </strong>{{dog.breed}}</h5>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit">Add Post</button>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="openDialog()">Edit</button>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()" routerLink="/profile/{{this.owner}}">Delete</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -40,4 +81,14 @@
       </div>
     </div>
   </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
+
+

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.token}`
   }),
 };
@@ -38,27 +38,6 @@ export class UserService {
       console.log(res);
     });
   }
-  getUser() {
-      const url = 'http://localhost:8000/api/getName';
-        return this.http.get(url, httpOptions).map(res => {
-          console.log(res);
-          return res;
-        });
-  }
-  getLoginInId() {
-    const url = 'http://localhost:8000/api/user';
-    return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
-      return res;
-    });
-  }
-  getProfile( id: number ) {
-      const url = 'http://localhost:8000/api/profile/' + id;
-      return this.http.get(url, httpOptions).map(res => {
-        console.log(res);
-        return res;
-      });
-  }
   postUpdate(updateForm) {
     const url = 'http://localhost:8000/api/update';
     return this.http.post<any>(url, updateForm, httpOptions).map(res => {
@@ -66,38 +45,22 @@ export class UserService {
       console.log(updateForm.name);
     });
   }
-  updatepic( file: File) {
-    // console.log('from service: ',formdata.getAll('displaypic'));
-    const url = 'http://localhost:8000/api/updateDisplayPic';
-    return this.http.post<any>(url, file, httpOptions).map(res => {
-      console.log(res);
-      // console.log(formdata.getAll('displaypic')); //ini aja uda bsa . ada filenya .
-    });
-  }
-  addDoggie(doggieForm) {
-    const url = 'http://localhost:8000/api/addDoggie';
-    return this.http.post<any>(url, doggieForm, httpOptions).map(res => {
-      console.log(res);
-    });
-  }
-  deleteDoggie( id: number ) {
-    const url = 'http://localhost:8000/api/delete/' + id;
-    return this.http.delete(url, httpOptions).map(res => {
+  getUser() {
+    const url = 'http://localhost:8000/api/getName';
+    return this.http.get(url, httpOptions).map(res => {
       console.log(res);
       return res;
     });
   }
-  updateDoggie( id: number, doggieForm) {
-    console.log(id);
-    console.log(doggieForm);
-    const url = 'http://localhost:8000/api/update/' + id;
-    return this.http.post(url, doggieForm, httpOptions).map(res => {
+  following() {
+    const url = 'http://localhost:8000/api/countFollowings';
+    return this.http.get(url, httpOptions).map(res => {
       console.log(res);
       return res;
     });
   }
-  getDoggie(id: number) {
-    const url = 'http://localhost:8000/api/getDogProfile/' + id;
+  follower() {
+    const url = 'http://localhost:8000/api/countFollowers';
     return this.http.get(url, httpOptions).map(res => {
       console.log(res);
       return res;

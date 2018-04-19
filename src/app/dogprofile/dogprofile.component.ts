@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserService} from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import {Doggies} from '../doggies';
 import {MatDialog} from '@angular/material';
 import {EditpetComponent} from '../editpet/editpet.component';
 import { Router } from '@angular/router';
 import {User} from '../User';
+import {PetService} from '../services/pet.service';
 
 @Component({
   selector: 'app-dogprofile',
@@ -14,8 +14,11 @@ import {User} from '../User';
 })
 export class DogprofileComponent implements OnInit {
   edit: boolean;
+  noDog: boolean;
+  currDog: boolean;
   uid: any;
   dogID: any;
+  dogID2: any;
   dogName: any;
   dogGender: any;
   dogDisplay: any;
@@ -24,16 +27,18 @@ export class DogprofileComponent implements OnInit {
   dogDesc: any;
   owner: any;
   currid: any;
+  public doggies: Doggies[];
+
   constructor
   (
-    private user: UserService,
+    private user: PetService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
   ) { }
   @Input() doggie: Doggies; userForm: User;
   profile() {
-    this.user.getLoginInId().subscribe(resp => {
+    this.user.getLoginId().subscribe(resp => {
       this.currid = resp['id'];
     });
     console.log(this.currid);
@@ -56,8 +61,18 @@ export class DogprofileComponent implements OnInit {
           console.log('View Mode');
           this.edit = false;
         }  else { this.edit = true; }
+        this.user.getProfile(this.owner).subscribe((doggies: Doggies[]) => {
+          this.doggies  = doggies['doggies'] ;
+          console.log(this.doggies);
+          if (this.doggies.length === 0 ) {
+            this.noDog = true;
+            console.log(this.noDog);
+          } else {
+            this.noDog = false;
+          }
+        });
+        console.log(this.owner);
       } );
-    //  get user
     });
   }
   openDialog(): void {

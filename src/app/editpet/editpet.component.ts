@@ -1,9 +1,9 @@
 import {Component, Input, OnInit, Inject} from '@angular/core';
 import {Doggies} from '../doggies';
-import {UserService} from '../services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import { MatDialogRef , MAT_DIALOG_DATA} from '@angular/material';
 import { Router } from '@angular/router';
+import {PetService} from '../services/pet.service';
 
 @Component({
   selector: 'app-editpet',
@@ -20,14 +20,14 @@ export class EditpetComponent implements OnInit {
   dogDesc: any;
   constructor
   (
-    private user: UserService,
+    private pet: PetService,
     private route: ActivatedRoute,
     private router: Router,
     public dialogRef: MatDialogRef<EditpetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { console.log('data', this.data['dogID']); }
   updateDoggie() {
-    this.user.updateDoggie(this.data['dogID'], this.doggiesForm).subscribe(
+    this.pet.updateDoggie(this.data['dogID'], this.doggiesForm).subscribe(
       () => console.log('doggiesForm is filled'),
       err => { console.error(err); alert('Update Doggie Unsuccesful'); },
       () => { console.log('Update Successful'); alert('Succesfully update doggie');
@@ -36,7 +36,7 @@ export class EditpetComponent implements OnInit {
     );
   }
   profile() {
-    this.user.getDoggie(this.data['dogID']).subscribe(resp => {
+    this.pet.getDoggie(this.data['dogID']).subscribe(resp => {
       this.doggiesForm.name = resp['name'];
       this.doggiesForm.gender = resp['gender'];
       this.doggiesForm.age = resp['age'];
