@@ -7,11 +7,15 @@ import 'rxjs/add/operator/map';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    // 'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.token}`
   }),
 };
-
+const httpOptions2 = {
+  headers: new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.token}`
+  }),
+};
 
 @Injectable()
 export class UserService {
@@ -19,12 +23,16 @@ export class UserService {
   token = localStorage.token;
   constructor(private http: HttpClient) {
   }
+  updatepic( file ) {
+    const url = 'http://localhost:8000/api/updateDisplayPic';
+    return this.http.post<any>(url, file, httpOptions2).map(res => {
+    });
+  }
 
   postSignIn(signing: SignIn) {
     let response: any = {};
     const url = 'http://localhost:8000/api/login';
     return this.http.post<any>(url, signing, httpOptions).map(res => {
-      console.log(res);
       response = res;
       if (res && res.data.token) {
         localStorage.setItem('token', response['data']['token']);
@@ -35,34 +43,50 @@ export class UserService {
   postRegister(registerForm) {
     const url = 'http://localhost:8000/api/register';
     return this.http.post<any>(url, registerForm, httpOptions).map(res => {
-      console.log(res);
     });
   }
   postUpdate(updateForm) {
     const url = 'http://localhost:8000/api/update';
     return this.http.post<any>(url, updateForm, httpOptions).map(res => {
-      console.log(res);
-      console.log(updateForm.name);
     });
   }
   getUser() {
     const url = 'http://localhost:8000/api/getName';
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
-  following() {
-    const url = 'http://localhost:8000/api/countFollowings';
+  following(id: number) {
+    const url = 'http://localhost:8000/api/countFollowings/' + id ;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
-  follower() {
-    const url = 'http://localhost:8000/api/countFollowers';
+  follower(id: number) {
+    const url = 'http://localhost:8000/api/countFollowers/' + id ;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
+      return res;
+    });
+  }
+  goFollow(id: number, updateForm ) {
+    const url = 'http://localhost:8000/api/profile/' + id + '/follow';
+    return this.http.post(url, updateForm, httpOptions).map(res => {
+    });
+  }
+  goUnfollow(id: number, updateForm) {
+    const url = 'http://localhost:8000/api/profile/' + id + '/unfollow';
+    return this.http.post<any>(url, updateForm, httpOptions).map(res => {
+    });
+  }
+  checkFollow(id: number) {
+    const url = 'http://localhost:8000/api/profile/is_followed/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+  getNotification () {
+    const url = 'http://localhost:8000/api/notifications' ;
+    return this.http.get(url, httpOptions).map(res => {
       return res;
     });
   }

@@ -1,0 +1,44 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--new -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+  </style>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+<br>
+  <div class="w3-main" style="margin-left:300px" [hidden]="edit">
+    <div class="w3-row-padding" [hidden]="this.noPost">
+      <div class="w3-third w3-container w3-margin-bottom" *ngFor="let p of post">
+        <p><h4>OWNER</h4>
+        <img src="http://localhost/gg/storage/app/public/images/{{p.pic}}" alt="Picture" style="width:100%" class="w3-hover-opacity">
+        <div class="w3-container w3-white">
+          <p><h3><strong>#{{p.caption}}</strong> <a href onclick="return false" ><i class="fa fa-heart-o"></i></a></h3>
+          <p><h4><strong>Location: </strong></h4>
+          <p><h4>{{p.location}}</h4>
+        </div>
+        <button class="btn btn-danger btn-md pull-center" type="submit" (click)="deletePost(p.id)">Delete Post</button>
+        <button class="btn btn-success btn-md pull-center" type="submit" (click)="editPost(p.id)">Edit Post</button>
+      </div>
+    </div>
+  </div>
+<div class="w3-main" style="margin-left:300px">
+  <div class="w3-row-padding" [hidden]="!edit">
+    <p>rekt</p>
+  </div>
+</div>
+</body>
+

@@ -26,7 +26,6 @@ export class NavigationBarComponent implements OnInit {
     private user: UserService,
     private pet: PetService,
     public dialog: MatDialog,
-    private router: Router,
   ) {}
   public data: string;
 
@@ -54,14 +53,13 @@ export class NavigationBarComponent implements OnInit {
     if (this.user.token) {
       this.user.getUser().subscribe(resp => {
         this.data = resp['name'];
+        this.pet.getLoginId().subscribe(res => {
+          this.id = res['id'];
+        });
       });
     } else {
-      this.data = ' Guest';
+      this.data = 'Guest';
     }
-    this.pet.getLoginId().subscribe(resp => {
-      this.id = resp['id'];
-      console.log(this.id);
-    });
   }
   checkAuth() {
     // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -137,8 +135,8 @@ export class NavigationBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkAuth();
     this.welcome();
+    this.checkAuth();
     this.search1();
     this.search2();
   }

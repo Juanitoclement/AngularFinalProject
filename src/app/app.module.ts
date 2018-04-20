@@ -1,4 +1,4 @@
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -18,13 +18,14 @@ import { ProfileComponent } from './profile/profile.component';
 
 import {UserService} from './services/user.service';
 import {PetService} from './services/pet.service';
-import {FileService} from './services/file.service';
 
 import { FileDropModule } from 'ngx-file-drop';
 import { AddpetComponent } from './addpet/addpet.component';
 import { DogprofileComponent } from './dogprofile/dogprofile.component';
 import { EditpetComponent } from './editpet/editpet.component';
 import { AddpostComponent } from './addpost/addpost.component';
+import { EdituserComponent } from './edituser/edituser.component';
+import { ViewpostComponent } from './viewpost/viewpost.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,8 @@ import { AddpostComponent } from './addpost/addpost.component';
     DogprofileComponent,
     EditpetComponent,
     AddpostComponent,
+    EdituserComponent,
+    ViewpostComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,8 +56,8 @@ import { AddpostComponent } from './addpost/addpost.component';
     ReactiveFormsModule,
     FileDropModule,
   ],
-  entryComponents: [EditpetComponent],
-  providers: [UserService, PetService, FileService],
+  entryComponents: [EditpetComponent, LoginComponent, RegisterComponent, EdituserComponent, AddpostComponent, ViewpostComponent],
+  providers: [UserService, PetService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

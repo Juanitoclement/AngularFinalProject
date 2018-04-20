@@ -6,6 +6,9 @@ import {EditpetComponent} from '../editpet/editpet.component';
 import { Router } from '@angular/router';
 import {User} from '../User';
 import {PetService} from '../services/pet.service';
+import {AddpostComponent} from '../addpost/addpost.component';
+import {ViewpostComponent} from '../viewpost/viewpost.component';
+import {Post} from '../post';
 
 @Component({
   selector: 'app-dogprofile',
@@ -15,10 +18,9 @@ import {PetService} from '../services/pet.service';
 export class DogprofileComponent implements OnInit {
   edit: boolean;
   noDog: boolean;
-  currDog: boolean;
+  noPost: boolean;
   uid: any;
   dogID: any;
-  dogID2: any;
   dogName: any;
   dogGender: any;
   dogDisplay: any;
@@ -28,22 +30,22 @@ export class DogprofileComponent implements OnInit {
   owner: any;
   currid: any;
   public doggies: Doggies[];
+  public post: Post[];
 
   constructor
   (
-    private user: PetService,
+    private pet: PetService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
   ) { }
   @Input() doggie: Doggies; userForm: User;
   profile() {
-    this.user.getLoginId().subscribe(resp => {
+    this.pet.getLoginId().subscribe(resp => {
       this.currid = resp['id'];
     });
-    console.log(this.currid);
     this.route.params.subscribe(params => this.uid = params['id'] );
-    this.user.getDoggie(this.uid).subscribe(resp => {
+    this.pet.getDoggie(this.uid).subscribe(resp => {
       this.dogName = resp['name'];
       this.dogID = resp['id'];
       this.dogGender = resp['gender'];
@@ -52,27 +54,32 @@ export class DogprofileComponent implements OnInit {
       this.dogDesc = resp['desc'];
       this.dogDisplay = resp['displaypic'];
       this.owner  = resp['owner_id'];
-      console.log(this.owner);
-      this.user.getProfile(this.owner).subscribe(res => {
+      this.pet.getProfile(this.owner).subscribe(res => {
         this.userForm.name = res['name'];
-        console.log(this.currid);
         if (this.owner !== this.currid) {
-          console.log(this.currid);
-          console.log('View Mode');
           this.edit = false;
         }  else { this.edit = true; }
-        this.user.getProfile(this.owner).subscribe((doggies: Doggies[]) => {
+        this.pet.getProfile(this.owner).subscribe((doggies: Doggies[]) => {
           this.doggies  = doggies['doggies'] ;
-          console.log(this.doggies);
           if (this.doggies.length === 0 ) {
             this.noDog = true;
-            console.log(this.noDog);
           } else {
             this.noDog = false;
           }
         });
-        console.log(this.owner);
-      } );
+      });
+    });
+  }
+  viewAllPost() {
+    this.route.params.subscribe(params => this.uid = params['id'] );
+    this.pet.viewAllPosts(this.uid).subscribe( (post: Post[]) => {
+      console.log(post);
+      this.post = post;
+      if (this.post.length === 0 ) {
+        this.noPost = true;
+      } else {
+        this.noPost = false;
+      }
     });
   }
   openDialog(): void {
@@ -86,16 +93,40 @@ export class DogprofileComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openDialog2(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open( AddpostComponent, {
+      data: {
+        dogID: this.uid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openDialog3(id: number) {
+    console.log(id);
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open( ViewpostComponent, {
+      data: {
+        postID: id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   deleteDog() {
-    this.user.deleteDoggie(this.uid).subscribe(
+    this.pet.deleteDoggie(this.uid).subscribe(
       () => console.log('Deleting'),
       err => { console.error(err); alert('Delete Doggie Unsuccesful'); },
       () => { console.log('Update Successful'); alert('Succesfully delete doggie'); },
     );
   }
   ngOnInit() {
-    this.profile();
     this.userForm = new User;
+    this.profile();
+    this.viewAllPost();
   }
 
 }

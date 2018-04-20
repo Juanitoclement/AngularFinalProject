@@ -580,3 +580,7 @@ footer a:hover {
   text-decoration: underline;
   color: #ed5565;
 }
+
+.container-fluid{
+  padding-left: 0px;
+}

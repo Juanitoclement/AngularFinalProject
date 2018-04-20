@@ -1,0 +1,59 @@
+<div class="col-md-10 profile-form">
+    <form class="form-horizontal" (ngSubmit)="submitUpdate()" #profileForm="ngForm">
+      <!-- Form Name -->
+      <legend>Edit Profile</legend>
+      <!-- Name input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="name">Name (Full name)</label>
+        <div class="col-md-4">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-user">
+              </i>
+            </div>
+            <input type="text" class="form-control input-md" id="name" required
+                   [(ngModel)]="user.name" name="name"
+                   #name="ngModel" >
+          </div>
+        </div>
+      </div>
+      <!-- File Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label">Upload photo</label>
+        <div class="col-md-4">
+          <!-- <input id="UploadPhoto" name="UploadPhoto" class="input-file" type="file" (change)="onFileUpload($event.target.files)"> -->
+          <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <span></span>
+          </file-drop>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+            </thead>
+            <tbody class="upload-name-style">
+            <tr *ngFor="let item of files; let i=index">
+              <td><strong>{{ item.relativePath }}</strong></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bio input -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="bio">BIO (max 200 words)</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="bio" required
+                 [(ngModel)]="user.bio" name="bio"
+                 #bio="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label" ></label>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-success" >Submit</button>
+          <button class="btn btn-danger"> Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
