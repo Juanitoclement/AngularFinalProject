@@ -84,6 +84,18 @@ export class UserService {
       return res;
     });
   }
+  viewFollowers(id: number) {
+    const url = 'http://localhost:8000/api/viewFollowers/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+  viewFollowings(id: number) {
+    const url = 'http://localhost:8000/api/viewFollowings/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
   getNotification () {
     const url = 'http://localhost:8000/api/notifications' ;
     return this.http.get(url, httpOptions).map(res => {

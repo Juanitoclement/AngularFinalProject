@@ -71,6 +71,7 @@ export class DogprofileComponent implements OnInit {
     });
   }
   viewAllPost() {
+    console.log(this.uid);
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.pet.viewAllPosts(this.uid).subscribe( (post: Post[]) => {
       console.log(post);
@@ -110,6 +111,7 @@ export class DogprofileComponent implements OnInit {
     const dialogRef = this.dialog.open( ViewpostComponent, {
       data: {
         postID: id,
+        dogID: this.uid,
       }
     });
     dialogRef.afterClosed().subscribe(result => {

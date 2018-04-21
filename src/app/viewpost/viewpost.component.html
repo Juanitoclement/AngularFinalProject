@@ -18,27 +18,26 @@
   </style>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body class="w3-light-grey w3-content" style="max-width:1600px">
-<br>
-  <div class="w3-main" style="margin-left:300px" [hidden]="edit">
-    <div class="w3-row-padding" [hidden]="this.noPost">
-      <div class="w3-third w3-container w3-margin-bottom" *ngFor="let p of post">
-        <p><h4>OWNER</h4>
-        <img src="http://localhost/gg/storage/app/public/images/{{p.pic}}" alt="Picture" style="width:100%" class="w3-hover-opacity">
+    <div class="w3-third" *ngFor="let p of post">
+      <div class="w3-card" style="width: 402px" (ngSubmit)="commentPost(p.id)">
+        <img src="http://localhost/gg/storage/app/public/images/{{p.pic}}">
         <div class="w3-container w3-white">
-          <p><h3><strong>#{{p.caption}}</strong> <a href onclick="return false" ><i class="fa fa-heart-o"></i></a></h3>
-          <p><h4><strong>Location: </strong></h4>
-          <p><h4>{{p.location}}</h4>
+          <h4><strong>{{p.caption}}</strong>
+            <a href onclick="return false" ><i class="fa fa-heart-o" *ngIf="!isLiked" style="margin-left: 200px" (click)="likePost(p.id)"><strong>{{this.countLike}}Likes</strong></i></a>
+            <a href onclick="return false" ><i class="fa fa-heart" *ngIf="isLiked" style="margin-left: 200px" (click)="unlikePost(p.id)"><strong>{{this.countLike}}Likes</strong></i></a>
+          </h4>
+          <h4>{{p.location}}</h4>
+              <input type="text" id="comment" [(ngModel)]="postForm.comment">
+                <button type="submit" (click)="commentPost(p.id)">enter</button>
         </div>
-        <button class="btn btn-danger btn-md pull-center" type="submit" (click)="deletePost(p.id)">Delete Post</button>
+        <div style="margin-left: 20px">
         <button class="btn btn-success btn-md pull-center" type="submit" (click)="editPost(p.id)">Edit Post</button>
+        <button class="btn btn-danger btn-md pull-center" type="submit" (click)="deletePost(p.id)">Delete Post</button>
+        </div>
+      </div>
+    <div class="w3-main" style="margin-left:300px">
+      <div class="w3-row-padding" [hidden]="!edit">
+        <p>Edit here</p>
       </div>
     </div>
   </div>
-<div class="w3-main" style="margin-left:300px">
-  <div class="w3-row-padding" [hidden]="!edit">
-    <p>rekt</p>
-  </div>
-</div>
-</body>
-

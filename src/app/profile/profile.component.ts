@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
       this.updateForm.bio = resp['bio'];
       this.updateForm.email = resp['email'];
       this.tarid = resp['id'];
+      console.log(this.tarid);
       this.display = resp['displaypic'];
       if (this.tarid !== this.currid) {
         this.edit = false;
@@ -93,6 +94,16 @@ export class ProfileComponent implements OnInit {
         this.updateForm.followers = res;
       }
     );
+  }
+  viewFollower() {
+    this.user.viewFollowers(this.uid).subscribe( res => {
+        console.log(res);
+      });
+  }
+  viewFollowing() {
+    this.user.viewFollowings(this.uid).subscribe( res => {
+      console.log(res);
+    });
   }
   doFollow() {
     this.user.goFollow(this.tarid, this.updateForm).subscribe( res => {

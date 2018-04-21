@@ -7,8 +7,8 @@ export const environment = {
   production: false,
   algolia:
   {
-    appId: 'EI3PP2XL9B',
-    apiKey: '355e0dd3e49fcfe3e08112452be0845a',
+    appId: '3N38TXDFWZ',
+    apiKey: '6367e9f6081c4830375ebd2e005dbe05',
     indexName: 'users',
   }
 };

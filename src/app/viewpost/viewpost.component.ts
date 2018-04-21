@@ -13,9 +13,13 @@ import {EditpetComponent} from '../editpet/editpet.component';
 })
 export class ViewpostComponent implements OnInit {
   noPost: boolean;
+  isLiked: boolean;
   edit: boolean;
   currid: any;
   uid: any;
+  like: any;
+  comment: any;
+  countLike: any;
   dogID: any;
   dogName: any;
   owner: any;
@@ -45,14 +49,29 @@ export class ViewpostComponent implements OnInit {
         this.noPost = false;
       }
     });
+    console.log(this.data['postID']);
+    this.pet.likeCount(this.data['postID']).subscribe( res => {
+      this.countLike = res['likes'];
+    });
+    this.pet.isPostLiked(this.data['postID']).subscribe( res => {
+      this.like = res['is_post_liked'];
+      if (this.like === 'yes') {
+        this.isLiked = true;
+      } else {
+        this.isLiked = false;
+      }
+    });
   }
-
   deletePost(id: number) {
     console.log(id);
     this.pet.deletePost(id).subscribe(
       () => console.log('Deleting'),
       err => { console.error(err); alert('Delete Post Unsuccesful'); },
-      () => { console.log('Update Successful'); alert('Succesfully delete post'); },
+      () => { console.log('Update Successful'); alert('Succesfully delete post');
+      this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+      this.router.navigateByUrl('/dogprofile/' + this.data['dogID']));
+      this.dialog.closeAll();
+      },
     );
   }
   editPost(id: number) {
@@ -63,11 +82,24 @@ export class ViewpostComponent implements OnInit {
       err => { console.error(err); alert('Update Post Unsuccesful'); },
       () => { console.log('Update Successful'); alert('Succesfully update post'); },
     );
-
+  }
+  likePost(id: number) {
+    this.pet.likePost(id).subscribe( res => {
+    });
+  }
+  unlikePost(id: number) {
+    this.pet.unlikePost(id).subscribe( res => {
+    });
+  }
+  commentPost(id: number) {
+    console.log(this.postForm);
+    this.pet.commentPost(id, this.postForm).subscribe();
+  }
+  deleteComment(id: number) {
+    this.pet.deleteComment(id).subscribe();
   }
   ngOnInit() {
     this.profile();
     this.postForm = new Post();
   }
-
 }

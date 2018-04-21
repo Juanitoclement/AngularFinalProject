@@ -54,7 +54,6 @@ export class PetService {
   getProfile( id: number ) {
     const url = 'http://localhost:8000/api/profile/' + id;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
@@ -64,6 +63,7 @@ export class PetService {
     });
   }
   viewAllPosts( id: number ) {
+    console.log(id);
     const url = 'http://localhost:8000/api/viewAllPosts/' + id;
     return this.http.get(url, httpOptions).map(res => {
       console.log(res);
@@ -91,4 +91,44 @@ export class PetService {
       console.log(postForm);
     });
   }
+  likePost(id: number ) {
+    const url = 'http://localhost:8000/api/likePost/' + id;
+    return this.http.get(url, httpOptions2).map(res => {
+      console.log(res);
+    });
+  }
+  unlikePost(id: number ) {
+    const url = 'http://localhost:8000/api/unlikePost/' + id;
+    return this.http.get(url, httpOptions2).map(res => {
+      console.log(res);
+    });
+  }
+  isPostLiked(id: number ) {
+    const url = 'http://localhost:8000/api/is_post_liked/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
+  likeCount(id: number ) {
+    const url = 'http://localhost:8000/api/likeCount/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
+  commentPost(id: number, postForm) {
+    const url = 'http://localhost:8000/api/comment_post/' + id;
+    return this.http.post(url, postForm, httpOptions).map(res => {
+      console.log(res);
+    });
+  }
+  deleteComment( id: number ) {
+    const url = 'http://localhost:8000/api/delete_comment/' + id;
+    return this.http.delete(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
+  }
+
 }

@@ -29,7 +29,9 @@ export class AddpostComponent implements OnInit {
     this.pet.dogPost(this.data['dogID'], this.formData).subscribe(
       () => console.log('postForm is filled'),
         err => { console.error(err); alert('Posting Unsuccesful'); },
-        () => { console.log('Post Successful'); alert('Succesfully Post'); },
+        () => { console.log('Post Successful'); alert('Succesfully Post');
+    this.router.navigateByUrl('/dogprofile/' + this.data['dogID'] );
+    this.dialogRef.close(); }
     );
   }
   public dropped(event: UploadEvent) {

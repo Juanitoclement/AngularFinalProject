@@ -5,4 +5,5 @@ export class Post {
   pic: File;
   caption: string;
   created_at: any;
+  comment: string;
 }
