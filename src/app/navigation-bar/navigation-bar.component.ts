@@ -25,6 +25,7 @@ export class NavigationBarComponent implements OnInit {
   constructor(
     private user: UserService,
     private pet: PetService,
+    private router: Router,
     public dialog: MatDialog,
   ) {}
   public data: string;
@@ -71,7 +72,10 @@ export class NavigationBarComponent implements OnInit {
       this.loggedOut = false;
     }
   }
-
+  goProfile() {
+    this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+    this.router.navigateByUrl('/profile/' + this.id));
+  }
   logout() {
     this.user.logout();
   }

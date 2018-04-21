@@ -22,7 +22,7 @@
           {{this.data}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-          <a class="dropdown-item" href="/profile/{{this.id}}">Profile</a>
+          <a class="dropdown-item" href onclick="return false" (click)="goProfile()">Profile</a>
           <a class="dropdown-item" href="#">Notifications</a>
           <a class="dropdown-item" href="#">Following</a>
           <a class="dropdown-item" href="#">Followers</a>

@@ -4,7 +4,7 @@ import {UserService} from '../services/user.service';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PetService} from '../services/pet.service';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {ProfileComponent} from '../profile/profile.component';
 
 
@@ -49,13 +49,12 @@ export class EdituserComponent implements OnInit {
   submitUpdate() {
     this.userService.postUpdate(this.user).subscribe(
       () => console.log('Updating'),
-      err => { console.error(err); alert('Update Doggie Unsuccesful'); this.ngOnInit(); },
+      err => { console.error(err); alert('Update Doggie Unsuccesful'); },
       () => { console.log('Update Successful'); alert('Succesfully update doggie');
       });
     this.userService.updatepic(this.formData).subscribe(
       () => console.log('uploading'),
-      err => { console.error(err); alert(' Update DisplayPic Unsuccesful Invalid file extention please use .jpg only');
-        this.ngOnInit(); },
+      err => { console.error(err); alert(' Update DisplayPic Unsuccesful Invalid file extention please use .jpg only'); },
       () => { console.log('Update Successful'); alert('Succesfully update displayPic');
       });
     this.dialogRef.close();

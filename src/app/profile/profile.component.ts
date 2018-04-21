@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../User';
 import 'rxjs/add/operator/map';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Doggies } from '../doggies';
 import {MatDialog} from '@angular/material';
 import {AddpetComponent} from '../addpet/addpet.component';
@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
     private user: UserService,
     private pet: PetService,
     private route: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog,
   ) { }
   @Input() updateForm: User;
@@ -67,7 +68,6 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
-
   doggieProfile() {
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.pet.getProfile(this.uid).subscribe((doggies: Doggies[]) => {

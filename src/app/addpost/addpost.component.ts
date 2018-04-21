@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {PetService} from '../services/pet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Post} from '../post';
@@ -20,6 +20,7 @@ export class AddpostComponent implements OnInit {
     private pet: PetService,
     private route: ActivatedRoute,
     private router: Router,
+    private dialog: MatDialog,
     public dialogRef: MatDialogRef<AddpostComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -30,8 +31,10 @@ export class AddpostComponent implements OnInit {
       () => console.log('postForm is filled'),
         err => { console.error(err); alert('Posting Unsuccesful'); },
         () => { console.log('Post Successful'); alert('Succesfully Post');
-    this.router.navigateByUrl('/dogprofile/' + this.data['dogID'] );
-    this.dialogRef.close(); }
+          this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+          this.router.navigateByUrl('/dogprofile/' + this.data['dogID']));
+          this.dialog.closeAll();
+          },
     );
   }
   public dropped(event: UploadEvent) {
