@@ -8,6 +8,9 @@ import {MatDialog} from '@angular/material';
 import {AddpetComponent} from '../addpet/addpet.component';
 import {PetService} from '../services/pet.service';
 import { EdituserComponent } from '../edituser/edituser.component';
+import {FollowersComponent} from '../followers/followers.component';
+import {FollowingsComponent} from '../followings/followings.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-profile',
@@ -38,9 +41,11 @@ export class ProfileComponent implements OnInit {
 
 
   profile() {
-    this.pet.getLoginId().subscribe(resp => {
-      this.currid = resp['id'];
-    });
+    if ( localStorage.getItem('token') !== null) {
+      this.pet.getLoginId().subscribe(resp => {
+        this.currid = resp['id'];
+      });
+    }
     this.route.params.subscribe(params => this.uid = params['id']);
     this.pet.getProfile(this.uid).subscribe(resp => {
       this.updateForm.name = resp['name'];
@@ -57,16 +62,18 @@ export class ProfileComponent implements OnInit {
     });
   }
   checkk() {
-    this.isFollowed = false;
-    this.route.params.subscribe(params => this.uid = params['id']);
-      this.user.checkFollow(this.uid).subscribe( response => {
+    if ( localStorage.getItem('token') !== null) {
+      this.isFollowed = false;
+      this.route.params.subscribe(params => this.uid = params['id']);
+      this.user.checkFollow(this.uid).subscribe(response => {
         this.fol = response['is_followed'];
-        if ( this.fol === 'true' ) {
+        if (this.fol === 'true') {
           this.isFollowed = true;
         } else {
           this.isFollowed = false;
         }
       });
+    }
   }
   doggieProfile() {
     this.route.params.subscribe(params => this.uid = params['id'] );
@@ -95,33 +102,52 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-  viewFollower() {
-    this.user.viewFollowers(this.uid).subscribe( res => {
-        console.log(res);
-      });
-  }
-  viewFollowing() {
-    this.user.viewFollowings(this.uid).subscribe( res => {
-      console.log(res);
-    });
-  }
   doFollow() {
-    this.user.goFollow(this.tarid, this.updateForm).subscribe( res => {
-    });
+    if (localStorage.getItem('token') !== null) {
+      this.user.goFollow(this.tarid, this.updateForm).subscribe(res => {
+        this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then(() =>
+          this.router.navigateByUrl('/profile/' + this.tarid));
+      });
+    } else {
+      this.loginFirst();
+    }
   }
   doUnfollow() {
-    this.user.goUnfollow(this.tarid, this.updateForm).subscribe( res => {
-    });
+    if (localStorage.getItem('token') !== null) {
+      this.user.goUnfollow(this.tarid, this.updateForm).subscribe(res => {
+        this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then(() =>
+          this.router.navigateByUrl('/profile/' + this.tarid));
+      });
+    } else {
+      this.loginFirst();
+    }
   }
   addPet() {
     this.online2 = true;
     this.online = false;
   }
+  loginFirst(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(LoginComponent, {
+      height: '500px',
+      width: '500x',
+      data: {
+        now: this.uid,
+        page: '/profile/'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   openDialog(): void {
     this.dialog.closeAll();
     const dialogRef = this.dialog.open(AddpetComponent, {
-      height: '500px',
-      width: '700x',
+      height: '600px',
+      width: '800x',
+      data: {
+        userID: this.uid
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -131,7 +157,33 @@ export class ProfileComponent implements OnInit {
     this.dialog.closeAll();
     const dialogRef = this.dialog.open(EdituserComponent, {
       height: '500px',
-      width: '60%',
+      width: '900px',
+      data: {
+        userID: this.uid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openDialog3(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(FollowersComponent, {
+      height: '500px',
+      width: '500px',
+      data: {
+        userID: this.uid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openDialog4(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(FollowingsComponent, {
+      height: '500px',
+      width: '500px',
       data: {
         userID: this.uid
       }

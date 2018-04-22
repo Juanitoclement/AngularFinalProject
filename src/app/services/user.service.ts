@@ -47,7 +47,8 @@ export class UserService {
   }
   postUpdate(updateForm) {
     const url = 'http://localhost:8000/api/update';
-    return this.http.post<any>(url, updateForm, httpOptions).map(res => {
+    return this.http.post<any>(url, updateForm, httpOptions2).map(res => {
+      console.log(res);
     });
   }
   getUser() {
@@ -93,6 +94,7 @@ export class UserService {
   viewFollowings(id: number) {
     const url = 'http://localhost:8000/api/viewFollowings/' + id;
     return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
       return res;
     });
   }
@@ -106,5 +108,13 @@ export class UserService {
     const url = 'http://localhost:8000/api/logout';
       localStorage.removeItem('token');
       return this.http.get(url, httpOptions);
+  }
+
+  postYouMightLike() {
+    const url = 'http://localhost:8000/api/postYouMightLike';
+    return this.http.get(url, httpOptions).map(res => {
+      console.log(res);
+      return res;
+    });
   }
 }

@@ -28,21 +28,22 @@ export class EditpetComponent implements OnInit {
     private router: Router,
     public dialogRef: MatDialogRef<EditpetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { console.log('data', this.data['dogID']); }
+  ) { }
+
   updateDoggie() {
-    this.pet.updateDoggie(this.data['dogID'], this.doggiesForm).subscribe(
+    this.formData.append('name', this.doggiesForm.name);
+    this.formData.append('desc', this.doggiesForm.desc);
+    this.formData.append('age', this.doggiesForm.age);
+    this.formData.append('gender', this.doggiesForm.gender);
+    this.formData.append('breed', this.doggiesForm.breed);
+    this.pet.updateDoggie(this.data['dogID'], this.formData).subscribe(
       () => console.log('doggiesForm is filled'),
       err => { console.error(err); alert('Update Doggie Unsuccesful'); },
       () => { console.log('Update Successful'); alert('Succesfully update doggie');
-      this.router.navigateByUrl('/dogprofile/' + this.data['dogID'] ); location.reload();
+        this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+          this.router.navigateByUrl('/dogprofile/' + this.data['dogID']));
       this.dialogRef.close(); },
     );
-    this.pet.updateDoggiePic(this.formData, this.data['dogID']).subscribe(
-      () => console.log('uploading'),
-      err => { console.error(err); alert(' Update DisplayPic Unsuccesful Invalid file extention please use .jpg only');
-        this.ngOnInit(); },
-      () => { console.log('Update Successful'); alert('Succesfully update displayPic');
-      });
   }
   profile() {
     this.pet.getDoggie(this.data['dogID']).subscribe(resp => {
@@ -86,6 +87,7 @@ export class EditpetComponent implements OnInit {
   }
   ngOnInit() {
     this.profile();
+    this.formData = new FormData();
     this.doggiesForm = new Doggies();
   }
 

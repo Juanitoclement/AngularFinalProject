@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Inject} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { SignIn } from '../SignIn';
 import { Router } from '@angular/router';
-import {MatDialog } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private dataService: UserService,
     private router: Router,
-    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   @Input() signing: SignIn;
 
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
     this.dataService.postSignIn(this.signing).subscribe(
       () => {console.log('Login Completed'); },
       err => {console.error(err); alert('Login Unsuccesful') ; } ,
-      () => {console.log('Login Succesful'); alert('Login Sucessful'); this.router.navigateByUrl('/home'); location.reload(); }
+      () => {console.log('Login Succesful');
+      alert('Login Sucessful'); this.router.navigateByUrl(this.data['page'] + this.data['now']); location.reload(); }
     );
   }
   // openDialog(): void {

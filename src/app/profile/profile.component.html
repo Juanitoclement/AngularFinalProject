@@ -26,17 +26,17 @@
                     <div class=" clearfix">
                       <h2>{{this.updateForm.name}}</h2>
                       <h4>{{this.updateForm.email}}</h4>
-                      <h5>BIO: {{this.updateForm.bio}}</h5>
+                      <h5>{{this.updateForm.bio}}</h5>
                       <button class="btn btn-success btn-md pull-center" type="submit" (click)="openDialog()" *ngIf="edit">Add Pet</button>
-                      <button class="btn btn-success btn-md pull-center" (click)="doFollow()" routerLink="profile/{{this.tarid}}" *ngIf="(!isFollowed) && (!edit)"  >Follow</button>
-                      <button class="btn btn-success btn-md pull-center" (click)="doUnfollow()" routerLink="profile/{{this.tarid}}" *ngIf="(isFollowed) && (!edit)" >Unfollow</button>
+                      <button class="btn btn-success btn-md pull-center" (click)="doFollow()" *ngIf="(!isFollowed) && (!edit)"  >Follow</button>
+                      <button class="btn btn-success btn-md pull-center" (click)="doUnfollow()" *ngIf="(isFollowed) && (!edit)" >Unfollow</button>
                     </div>
                   </div>
                   <div class="col-md-7">
                     <div class="profile-block">
                       <ul class="list-group">
-                        <li class="list-group-item" (click)="viewFollower()">Followers <span class="badge">{{updateForm.followers}}</span></li>
-                        <li class="list-group-item" (click)="viewFollowing()">Following<span class="badge">{{updateForm.followings}}</span></li>
+                        <li class="list-group-item" (click)="openDialog3()">Followers <span class="badge">{{updateForm.followers}}</span></li>
+                        <li class="list-group-item" (click)="openDialog4()">Following<span class="badge">{{updateForm.followings}}</span></li>
                       </ul>
                     </div>
                   </div>

@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-md-9">
               <div class="panel">
-                <button style="width: 150px" routerLink="/profile/{{this.owner}}">Go back to "{{this.userForm.name}}'s" Profile</button>
+                <button style="width: 150px" routerLink="/profile/{{this.owner}}">{{this.userForm.name}}'s Profile</button>
                 <div class=" panel-body ">
                   <div class="col-md-5" style="margin-bottom: 30px">
                     <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.dogDisplay}}" style="width:50%;">
@@ -38,7 +38,7 @@
                       <h5><strong>Gender: </strong>{{this.dogGender}}</h5>
                       <h5><strong>Breed: </strong>{{this.dogBreed}}</h5>
                       <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="openDialog2()">Add Post</button>
-                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()" routerLink="/profile/{{this.owner}}">Delete</button>
+                      <button class="btn btn-success btn-md pull-center" type="submit" *ngIf="edit" (click)="deleteDog()">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -49,13 +49,7 @@
       <!-- First Photo Grid-->
       <div class="w3-row-padding" [hidden]="this.noPost">
         <div class="w3-third w3-container w3-margin-bottom" *ngFor="let p of post">
-          <p><h4>OWNER</h4>
           <img src="http://localhost/gg/storage/app/public/images/{{p.pic}}" alt="Picture" style="width:100%" class="w3-hover-opacity" (click)="openDialog3(p.id)">
-          <div class="w3-container w3-white">
-            <p><h3><strong>#{{p.caption}}</strong> <a href onclick="return false" routerLink="/dogprofile/post/{{p.id}}"><i class="fa fa-wrench" *ngIf="edit">View Post</i></a></h3>
-            <p><h4><strong>Location: </strong>{{p.location}}</h4>
-            <p><h4>{{p.created_at}}</h4>
-          </div>
         </div>
       </div>
     </div>

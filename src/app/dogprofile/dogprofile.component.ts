@@ -29,6 +29,8 @@ export class DogprofileComponent implements OnInit {
   dogDesc: any;
   owner: any;
   currid: any;
+  now: any;
+  date1: any;
   public doggies: Doggies[];
   public post: Post[];
 
@@ -41,34 +43,39 @@ export class DogprofileComponent implements OnInit {
   ) { }
   @Input() doggie: Doggies; userForm: User;
   profile() {
-    this.pet.getLoginId().subscribe(resp => {
-      this.currid = resp['id'];
-    });
-    this.route.params.subscribe(params => this.uid = params['id'] );
-    this.pet.getDoggie(this.uid).subscribe(resp => {
-      this.dogName = resp['name'];
-      this.dogID = resp['id'];
-      this.dogGender = resp['gender'];
-      this.dogAge = resp['age'];
-      this.dogBreed = resp['breed'];
-      this.dogDesc = resp['desc'];
-      this.dogDisplay = resp['displaypic'];
-      this.owner  = resp['owner_id'];
-      this.pet.getProfile(this.owner).subscribe(res => {
-        this.userForm.name = res['name'];
-        if (this.owner !== this.currid) {
-          this.edit = false;
-        }  else { this.edit = true; }
-        this.pet.getProfile(this.owner).subscribe((doggies: Doggies[]) => {
-          this.doggies  = doggies['doggies'] ;
-          if (this.doggies.length === 0 ) {
-            this.noDog = true;
+    if (localStorage.getItem('token') !== null) {
+      this.pet.getLoginId().subscribe(resp => {
+        this.currid = resp['id'];
+      });
+    }
+      this.route.params.subscribe(params => this.uid = params['id']);
+      this.pet.getDoggie(this.uid).subscribe(resp => {
+        this.dogName = resp['name'];
+        this.dogID = resp['id'];
+        this.dogGender = resp['gender'];
+        this.dogAge = resp['age'];
+        this.dogBreed = resp['breed'];
+        this.dogDesc = resp['desc'];
+        this.dogDisplay = resp['displaypic'];
+        this.owner = resp['owner_id'];
+        this.pet.getProfile(this.owner).subscribe(res => {
+          this.userForm.name = res['name'];
+          if (this.owner !== this.currid) {
+            this.edit = false;
           } else {
-            this.noDog = false;
+            this.edit = true;
           }
+          this.pet.getProfile(this.owner).subscribe((doggies: Doggies[]) => {
+            this.doggies = doggies['doggies'];
+            if (this.doggies.length === 0) {
+              this.noDog = true;
+            } else {
+              this.noDog = false;
+            }
+          });
         });
       });
-    });
+
   }
   viewAllPost() {
     console.log(this.uid);
@@ -112,6 +119,9 @@ export class DogprofileComponent implements OnInit {
       data: {
         postID: id,
         dogID: this.uid,
+        dogName: this.dogName,
+        ownerName: this.userForm.name,
+        ownerID: this.owner,
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -122,7 +132,10 @@ export class DogprofileComponent implements OnInit {
     this.pet.deleteDoggie(this.uid).subscribe(
       () => console.log('Deleting'),
       err => { console.error(err); alert('Delete Doggie Unsuccesful'); },
-      () => { console.log('Update Successful'); alert('Succesfully delete doggie'); },
+      () => { console.log('Update Successful'); alert('Succesfully delete doggie');
+        this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+          this.router.navigateByUrl('/profile/' + this.currid));
+      },
     );
   }
   ngOnInit() {

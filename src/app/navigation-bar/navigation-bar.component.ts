@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import instantsearch from 'instantsearch.js/dist-es5-module/src/lib/main';
 import {Router} from '@angular/router';
 import {PetService} from '../services/pet.service';
+import {NotifComponent} from '../notif/notif.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -21,7 +22,6 @@ export class NavigationBarComponent implements OnInit {
   loggedIn: boolean;
   loggedOut: boolean;
   id: number;
-
   constructor(
     private user: UserService,
     private pet: PetService,
@@ -35,6 +35,10 @@ export class NavigationBarComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent, {
       height: '500px',
       width: '500px',
+      data: {
+        now: '',
+        page: '/home/'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -105,7 +109,7 @@ export class NavigationBarComponent implements OnInit {
                         <div class="hitcontentitems"><font size='1'>{{{followers}}} followers</font> </div>
                         <div class="hitcontentitems">
                           <div class='doggies'><img class="dog_img" src=http://localhost/gg/storage/app/public/images/dog_icon.png width="30px" height="30px"></div>
-                          <div class='doggies'><font size='2'> {{#dog}} <a href="/dogprofile/{{{dog-id}}}" class="dogbutton dogs" style="text-decoration: none;"> {{{dog-id}}} {{{dogname}}}</a> {{/dog}}</font></div>
+                          <div class='doggies'><font size='2'> {{#dog}} <a href="/dogprofile/{{{dog-id}}}" class="dogbutton dogs" style="text-decoration: none;">{{{dogname}}}</a> {{/dog}}</font></div>
                         </div>
                       </div>
                   </div>
@@ -118,26 +122,18 @@ export class NavigationBarComponent implements OnInit {
       })
     );
   }
-  search3() {
-    this.search.addWidget(
-      instantsearch.widgets.stats({
-          container: '#stats'
-        }
-      )
-    );
+  getNotification() {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(NotifComponent, {
+      height: '500px',
+      width: '500px',
+      data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
-  search4() {
-    this.search.addWidget(
-      instantsearch.widgets.analytics({
-        pushFunction: (query, state, results) => {
-          console.log(query);
-          console.log(state);
-          console.log(results);
-        }
-      })
-    );
-  }
-
   ngOnInit() {
     this.welcome();
     this.checkAuth();

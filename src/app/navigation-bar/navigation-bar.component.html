@@ -14,16 +14,13 @@
       <li class="nav-item">
         <a class="nav-link" href onclick="return false" *ngIf="!loggedOut" (click)="openDialogg()">Create</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href onclick="return false" *ngIf="loggedIn" >Notifiations</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="return false" *ngIf="loggedIn" >
           {{this.data}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
           <a class="dropdown-item" href onclick="return false" (click)="goProfile()">Profile</a>
-          <a class="dropdown-item" href="#">Notifications</a>
+          <a class="dropdown-item" href onclick="return false" (click)="getNotification()">Notifications</a>
           <a class="dropdown-item" href="#">Following</a>
           <a class="dropdown-item" href="#">Followers</a>
           <a class="dropdown-item" href="/home" (click)="logout()" >Logout</a>
@@ -37,6 +34,4 @@
     </ul>
   </div>
 </nav>
-
-
 <!--<div id="stats"></div>-->

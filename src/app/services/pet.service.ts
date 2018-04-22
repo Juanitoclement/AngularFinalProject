@@ -24,7 +24,7 @@ export class PetService {
   }
   addDoggie(doggieForm) {
     const url = 'http://localhost:8000/api/addDoggie';
-    return this.http.post<any>(url, doggieForm, httpOptions).map(res => {
+    return this.http.post<any>(url, doggieForm, httpOptions2).map(res => {
     });
   }
   deleteDoggie( id: number ) {
@@ -35,7 +35,7 @@ export class PetService {
   }
   updateDoggie( id: number, doggieForm) {
     const url = 'http://localhost:8000/api/update/' + id;
-    return this.http.post(url, doggieForm, httpOptions).map(res => {
+    return this.http.post(url, doggieForm, httpOptions2).map(res => {
       return res;
     });
   }
@@ -66,14 +66,12 @@ export class PetService {
     console.log(id);
     const url = 'http://localhost:8000/api/viewAllPosts/' + id;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
   deletePost( id: number ) {
     const url = 'http://localhost:8000/api/deletePost/' + id;
     return this.http.delete(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
@@ -87,40 +85,33 @@ export class PetService {
   updatePost(id: number, postForm) {
     const url = 'http://localhost:8000/api/updatePost/' + id;
     return this.http.post(url, postForm, httpOptions2).map(res => {
-      console.log(res);
-      console.log(postForm);
     });
   }
   likePost(id: number ) {
     const url = 'http://localhost:8000/api/likePost/' + id;
     return this.http.get(url, httpOptions2).map(res => {
-      console.log(res);
     });
   }
   unlikePost(id: number ) {
     const url = 'http://localhost:8000/api/unlikePost/' + id;
     return this.http.get(url, httpOptions2).map(res => {
-      console.log(res);
     });
   }
   isPostLiked(id: number ) {
     const url = 'http://localhost:8000/api/is_post_liked/' + id;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
   likeCount(id: number ) {
     const url = 'http://localhost:8000/api/likeCount/' + id;
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
       return res;
     });
   }
   commentPost(id: number, postForm) {
     const url = 'http://localhost:8000/api/comment_post/' + id;
     return this.http.post(url, postForm, httpOptions).map(res => {
-      console.log(res);
     });
   }
   deleteComment( id: number ) {
@@ -130,5 +121,16 @@ export class PetService {
       return res;
     });
   }
-
+  commentCount( id: number ) {
+    const url = 'http://localhost:8000/api/commentCount/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+  getComment( id: number ) {
+    const url = 'http://localhost:8000/api/getComment/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
 }

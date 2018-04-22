@@ -2,9 +2,9 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {User} from '../User';
 import {UserService} from '../services/user.service';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router } from '@angular/router';
 import {PetService} from '../services/pet.service';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProfileComponent} from '../profile/profile.component';
 
 
@@ -14,20 +14,20 @@ import {ProfileComponent} from '../profile/profile.component';
   styleUrls: ['./edituser.component.css']
 })
 export class EdituserComponent implements OnInit {
+  @Input() user: User;
   formData: FormData;
   public files: UploadFile[] = [];
-  router: Router;
+
   currid: any;
   url: any;
   constructor
   (
+    private router: Router,
     private pet: PetService,
-    private route: ActivatedRoute,
     private userService: UserService,
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
-  @Input() user: User;
 
   profile() {
     console.log(this.data['userID']) ;
@@ -35,9 +35,7 @@ export class EdituserComponent implements OnInit {
       this.user.name = resp['name'];
       this.user.bio = resp['bio'];
       this.user.email = resp['email'];
-      console.log(this.user.name);
     });
-
   }
   public fileOver(event) {
     console.log(event);
@@ -47,17 +45,19 @@ export class EdituserComponent implements OnInit {
     console.log(event);
   }
   submitUpdate() {
-    this.userService.postUpdate(this.user).subscribe(
+    this.formData.append('bio', this.user.bio);
+    this.formData.append('name', this.user.name);
+    this.userService.postUpdate(this.formData).subscribe(
       () => console.log('Updating'),
-      err => { console.error(err); alert('Update Doggie Unsuccesful'); },
-      () => { console.log('Update Successful'); alert('Succesfully update doggie');
-      });
-    this.userService.updatepic(this.formData).subscribe(
-      () => console.log('uploading'),
-      err => { console.error(err); alert(' Update DisplayPic Unsuccesful Invalid file extention please use .jpg only'); },
-      () => { console.log('Update Successful'); alert('Succesfully update displayPic');
-      });
-    this.dialogRef.close();
+      err => { console.error(err); alert('Update User Unsuccesful'); },
+      () => { console.log('Update Successful'); alert('Succesfully update user');
+        console.log('/profile/' + this.data['userID']);
+        this.router.navigateByUrl('/profile',{skipLocationChange: true}).then(() =>
+          this.router.navigateByUrl('profile/' + this.data['userID']));
+        this.dialogRef.close();
+      },
+      );
+
   }
   public dropped(event: UploadEvent) {
     this.files = event.files;
@@ -69,7 +69,6 @@ export class EdituserComponent implements OnInit {
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
           // You could upload it like this:
-          this.formData = new FormData();
           this.formData.append('displaypic', file);
           console.log(this.formData.getAll('displaypic'));
         });
@@ -82,6 +81,7 @@ export class EdituserComponent implements OnInit {
   }
   ngOnInit() {
     this.profile();
+    this.formData = new FormData();
     this.user = new User();
   }
 

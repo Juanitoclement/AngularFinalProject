@@ -19,25 +19,39 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
     <div class="w3-third" *ngFor="let p of post">
-      <div class="w3-card" style="width: 402px" (ngSubmit)="commentPost(p.id)">
+      <div style="width: 402px" (ngSubmit)="commentPost(this.data['postID'])">
+        <h4><strong>
+          <a (click)="close()" routerLink="/profile/{{this.data['ownerID']}}">{{this.data['ownerName']}} 's</a>
+          <p (click)="close()">{{this.data['dogName']}}</p>
+        </strong>
+          <i class="fa fa-trash" style="float: right; padding-left:15px" (click)="deletePost(this.data['postID'])" *ngIf="edit"></i>
+          <i class="fa fa-wrench" style="float: right;" (click)="doEdit()" *ngIf="edit"></i>
+        </h4>
         <img src="http://localhost/gg/storage/app/public/images/{{p.pic}}">
         <div class="w3-container w3-white">
           <h4><strong>{{p.caption}}</strong>
-            <a href onclick="return false" ><i class="fa fa-heart-o" *ngIf="!isLiked" style="margin-left: 200px" (click)="likePost(p.id)"><strong>{{this.countLike}}Likes</strong></i></a>
-            <a href onclick="return false" ><i class="fa fa-heart" *ngIf="isLiked" style="margin-left: 200px" (click)="unlikePost(p.id)"><strong>{{this.countLike}}Likes</strong></i></a>
+            <a href onclick="return false" style="float: right"><i class="fa fa-heart-o" *ngIf="!isLiked" style="margin-left: 200px" (click)="likePost(this.data['postID'])"><strong>{{this.countLike}}</strong></i></a>
+            <a href onclick="return false" style="float: right"><i class="fa fa-heart" *ngIf="isLiked" style="margin-left: 200px" (click)="unlikePost(this.data['postID'])"><strong>{{this.countLike}}</strong></i></a>
           </h4>
-          <h4>{{p.location}}</h4>
-              <input type="text" id="comment" [(ngModel)]="postForm.comment">
-                <button type="submit" (click)="commentPost(p.id)">enter</button>
-        </div>
-        <div style="margin-left: 20px">
-        <button class="btn btn-success btn-md pull-center" type="submit" (click)="editPost(p.id)">Edit Post</button>
-        <button class="btn btn-danger btn-md pull-center" type="submit" (click)="deletePost(p.id)">Delete Post</button>
+          <h5><i class="fa fa-location-arrow"></i> &nbsp; {{p.location}}</h5>
+              <input type="text" id="comment" [(ngModel)]="postForm.comment" *ngIf="edit3">
+                <button type="submit" (click)="commentPost(p.id)" *ngIf="edit3">Comment</button>
+                <button type="submit" (click)="getComment(p.id)">View Comment</button>
+          <p style="margin-top: 10px">{{p.created_at}}</p>
         </div>
       </div>
-    <div class="w3-main" style="margin-left:300px">
-      <div class="w3-row-padding" [hidden]="!edit">
-        <p>Edit here</p>
+      <div class="w3-third" [hidden]="!edit2">
+        <p><strong>Edit</strong></p>
+        <p>Location</p><input type="text" id="location" [(ngModel)]="postForm.location" placeholder="{{p.location}}">
+        <p>Caption</p><input type="text" id="caption" [(ngModel)]="postForm.caption" placeholder="{{p.caption}}">
+        <button type="submit" (click)="editPost(this.data['postID'])" >Edit</button>
       </div>
-    </div>
+      <div>
+        <div *ngFor="let c of comment" [hidden]="!edit4">
+          <div style="display: inline"><strong>{{c.username}}</strong></div>
+          <div style="display: inline">{{c.comment}}</div>
+          <div style="display: inline">{{c.created_at}}</div>
+          <button type="submit" (click)="deleteComment(c.id)" *ngIf="edit">Delete</button>
+        </div>
+      </div>
   </div>

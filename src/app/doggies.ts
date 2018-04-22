@@ -1,7 +1,7 @@
 export class Doggies {
   id: number;
   name: string;
-  age: number;
+  age: string;
   desc: string;
   breed: string;
   gender: string;

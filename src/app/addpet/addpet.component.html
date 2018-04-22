@@ -58,14 +58,19 @@
         </div>
       </div>
       <div class="form-group">
+      <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <span></span>
+      </file-drop>
+      </div>
+      <div class="form-group">
         <div class="col-md-3" style="padding-right: 0px">
           <button type="submit" class="btn btn-success" routerLink="/profile/{{this.currid}}">Submit </button>
         </div>
-        <div class="col-md-4" style="display: inline">
-          <button class="btn btn-danger"> Clear</button>
-        </div>
       </div>
     </form>
+  <div class="col-md-4" style="display: inline">
+    <button class="btn btn-danger" (click)="clear()"> Clear</button>
+  </div>
   </div>
   <div class="col-md-2 hidden-xs">
   </div>

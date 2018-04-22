@@ -26,6 +26,9 @@ import { EditpetComponent } from './editpet/editpet.component';
 import { AddpostComponent } from './addpost/addpost.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { ViewpostComponent } from './viewpost/viewpost.component';
+import { FollowersComponent } from './followers/followers.component';
+import { FollowingsComponent } from './followings/followings.component';
+import { NotifComponent } from './notif/notif.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { ViewpostComponent } from './viewpost/viewpost.component';
     AddpostComponent,
     EdituserComponent,
     ViewpostComponent,
+    FollowersComponent,
+    FollowingsComponent,
+    NotifComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,8 +62,13 @@ import { ViewpostComponent } from './viewpost/viewpost.component';
     ReactiveFormsModule,
     FileDropModule,
   ],
-  entryComponents: [EditpetComponent, LoginComponent, RegisterComponent, EdituserComponent, AddpostComponent, ViewpostComponent],
-  providers: [UserService, PetService,],
+  entryComponents: [
+    EditpetComponent, LoginComponent,
+    RegisterComponent, EdituserComponent,
+    AddpostComponent, ViewpostComponent,
+    AddpetComponent, FollowersComponent,
+    FollowingsComponent, NotifComponent],
+  providers: [UserService, PetService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

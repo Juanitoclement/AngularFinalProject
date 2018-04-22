@@ -55,9 +55,10 @@
           <!--<option value="female">Female</option>-->
           <!--<option value="male">Male</option>-->
         <!--</select>-->
-        <input type="text" class="form-control" id="petgender" required
-               [(ngModel)]="doggiesForm.gender" name="gender"
-               #gender="ngModel" value="{{doggiesForm.gender}}">
+        <select name="gender" id="petgender" [(ngModel)]="doggiesForm.gender">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
       </div>
     </div>
     <!-- File Button -->
