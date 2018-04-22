@@ -19,6 +19,7 @@ export class ViewpostComponent implements OnInit {
   edit2: boolean;
   edit3: boolean;
   edit4: boolean;
+  isClose: boolean;
   currid: any;
   like: any;
   countLike: any;
@@ -42,13 +43,13 @@ export class ViewpostComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   @Input() postForm: Post; userForm: User;
+
   profile() {
     this.postID = this.data['postID'];
     this.dogID = this.data['dogID'];
     this.dogName = this.data['dogName'];
     this.ownerName = this.data['ownerName'];
     this.ownerID = this.data['ownerID'];
-    console.log(this.data['ownerID']);
     if (localStorage.getItem('token') !== null) {
       this.edit3 = true;
       this.pet.getLoginId().subscribe(resp => {
@@ -62,7 +63,6 @@ export class ViewpostComponent implements OnInit {
     } else {
       this.edit3 = false;
     }
-    console.log(this.data['postID']);
     this.pet.viewPost(this.data['postID']).subscribe((post: Post[]) => {
       this.post = post;
       let i;
@@ -96,24 +96,8 @@ export class ViewpostComponent implements OnInit {
         this.noPost = false;
       }
     });
-    console.log(this.data['postID']);
-    this.pet.likeCount(this.data['postID']).subscribe( res => {
-      this.countLike = res['likes'];
-    });
-    if (localStorage.getItem('token') !== null) {
-      this.pet.isPostLiked(this.data['postID']).subscribe(res => {
-        this.like = res['is_post_liked'];
-        if (this.like === 'yes') {
-          this.isLiked = true;
-        } else {
-          this.isLiked = false;
-        }
-      });
-      this.pet.commentCount(this.data['postID']).subscribe();
-    }
   }
   deletePost(id: number) {
-    console.log(id);
     this.pet.deletePost(id).subscribe(
       () => console.log('Deleting'),
       err => { console.error(err); alert('Delete Post Unsuccesful'); },
@@ -126,19 +110,18 @@ export class ViewpostComponent implements OnInit {
   }
   editPost(id: number) {
     if (localStorage.getItem('token') !== null) {
-      console.log(id);
       this.pet.updatePost(id, this.postForm).subscribe(
         () => console.log('Updating'),
         err => {
-          console.error(err);
           alert('Update Post Unsuccesful');
         },
         () => {
-          console.log('Update Successful');
           alert('Succesfully update post');
         },
       );
     }
+    this.edit2 = false;
+    this.profile();
   }
   doEdit() {
       this.edit2 = true;
@@ -146,34 +129,72 @@ export class ViewpostComponent implements OnInit {
   likePost(id: number) {
     if (localStorage.getItem('token') !== null) {
       this.pet.likePost(id).subscribe(res => {
-        this.openDialog3(id);
+        this.isPostLiked();
       });
     } else {
       this.loginFirst();
     }
   }
+  unlikePost(id: number) {
+    if (localStorage.getItem('token') !== null) {
+      this.pet.unlikePost(id).subscribe(res => {
+        this.isPostLiked();
+      });
+    } else {
+      this.loginFirst();
+    }
+  }
+  isPostLiked() {
+    if (localStorage.getItem('token') !== null) {
+      this.pet.isPostLiked(this.data['postID']).subscribe(res => {
+        this.like = res['is_post_liked'];
+        if (this.like === 'yes') {
+          this.isLiked = true;
+        } else {
+          this.isLiked = false;
+        }
+      });
+      this.pet.commentCount(this.data['postID']).subscribe();
+      this.pet.likeCount(this.data['postID']).subscribe( res => {
+        this.countLike = res['likes'];
+      });
+    }
+  }
   getComment(id: number) {
     this.pet.getComment(id).subscribe( (comment: Comment[]) => {
       this.comment = comment;
+      let i;
+      // var start = Date.now();
+      for (i = 0; i < comment.length; i++) {
+        this.date1 = new Date(comment[i]['created_at']);
+        this.now = new Date();
+        const diff = (this.now - this.date1) / 1000;
+        if (diff < 60) {
+          comment[i]['created_at'] = Math.floor(diff) + 's ago';
+        }
+        if (diff > 60 && diff <= 5040) {
+          comment[i]['created_at'] = Math.floor(diff / 60) + ' min ago';
+        }
+        if (diff >  5040 && diff < 86400) {
+          comment[i]['created_at'] = Math.floor(diff / 60 / 60) + ' hrs ago';
+        }
+        if (diff > 86400 && diff < 604800) {
+          comment[i]['created_at'] = Math.floor(diff / 60 / 60 / 24) + ' days ago';
+        }
+        if (diff > 604800 && ( diff / 60 / 60 / 24 / 7 ) < 5) {
+          comment[i]['created_at'] = Math.floor(diff / 60 / 60 / 24 / 7) + ' weeks ago';
+        }
+        if ((diff / 60 / 60 / 24 / 7 ) >= 5) {
+          comment[i]['created_at'] = this.date1.getDate() + '/' +  (1 + this.date1.getMonth()) + '/' + this.date1.getFullYear();
+        }
+      }
       this.edit4 = true;
-      console.log(this.comment);
+      this.isClose = true;
     });
   }
-  openDialog3(id: number) {
-    console.log(id);
-    this.dialog.closeAll();
-    const dialogRef = this.dialog.open( ViewpostComponent, {
-      data: {
-        postID: this.postID,
-        dogID: this.dogID,
-        dogName: this.dogName,
-        ownerName: this.ownerName,
-        ownerID: this.ownerID,
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  hide() {
+    this.isClose = false;
+    this.edit4 = false  ;
   }
   loginFirst(): void {
     this.dialog.closeAll();
@@ -184,27 +205,25 @@ export class ViewpostComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
-  }
-  unlikePost(id: number) {
-    this.pet.unlikePost(id).subscribe( res => {
-    });
-    this.openDialog3(id);
   }
   commentPost(id: number) {
-    console.log(this.postForm);
     this.pet.commentPost(id, this.postForm).subscribe();
+    this.getComment(id);
   }
   deleteComment(id: number) {
-    console.log(id);
     this.pet.deleteComment(id).subscribe();
+    this.edit4 = false;
   }
   close() {
+    this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
+      this.router.navigateByUrl('/profile/' + this.data['ownerID']));
     this.dialog.closeAll();
   }
   ngOnInit() {
+    this.isPostLiked();
     this.profile();
     this.postForm = new Post();
+
   }
 }

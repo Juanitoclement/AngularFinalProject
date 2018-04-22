@@ -23,11 +23,6 @@ export class UserService {
   token = localStorage.token;
   constructor(private http: HttpClient) {
   }
-  updatepic( file ) {
-    const url = 'http://localhost:8000/api/updateDisplayPic';
-    return this.http.post<any>(url, file, httpOptions2).map(res => {
-    });
-  }
 
   postSignIn(signing: SignIn) {
     let response: any = {};

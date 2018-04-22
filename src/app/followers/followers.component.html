@@ -24,30 +24,30 @@
     overflow: hidden;
   }
 </style>
-<div *ngFor="let u of user">
-  <p style="display: inline">{{u.id}}</p><p style="display: inline;">{{u.name}}</p>
-  <img src="http://localhost/gg/storage/app/public/images/{{u.displaypic}}" style="width: 50px; height: 50px">
-
-  <button class="accordion" style="display: inline">{{u.name}}<div class="panel"><img src="http://localhost/gg/storage/app/public/images/{{u.displaypic}}" style="width: 100px; height: 100px">
-    <p style="display: inline">{{u.id}}</p><p>{{u.name}}</p>
-  </div></button>
-
-
-
-  <script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-          panel.style.display = "none";
-        } else {
-          panel.style.display = "block";
-        }
-      });
-    }
-  </script>
+<h3><strong> Followers </strong></h3>
+<br>
+<div *ngFor="let u of user" style="display: inline">
+  <div style="display:inline;">
+    <img src="http://localhost/gg/storage/app/public/images/{{u.displaypic}}" style="width: 50px; height: 50px">
+  </div>
+  <div class="panel" style="display: inline">
+    <button class="accordion" style="display: inline; width: 350px; align-content: center" (click)="reDirect(u.id)"><strong>{{u.username}}</strong></button>
+  </div>
+  <hr>
 </div>
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+</script>

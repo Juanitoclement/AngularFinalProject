@@ -14,58 +14,53 @@ const httpOptions2 = {
 };
 @Injectable()
 export class PetService {
-
-  constructor(private http: HttpClient) { }
-  updateDoggiePic( file, id: number ) {
-    const url = 'http://localhost:8000/api/updateDoggiePic/' + id;
-    return this.http.post<any>(url, file, httpOptions2).map(res => {
-      console.log(res);
-    });
-  }
+  public url = 'http://localhost:8000/api/';
+  constructor
+  (
+    private http: HttpClient
+  ) { }
   addDoggie(doggieForm) {
-    const url = 'http://localhost:8000/api/addDoggie';
-    return this.http.post<any>(url, doggieForm, httpOptions2).map(res => {
+    return this.http.post<any>(this.url + 'addDoggie/', doggieForm, httpOptions2).map(res => {
     });
   }
   deleteDoggie( id: number ) {
-    const url = 'http://localhost:8000/api/delete/' + id;
-    return this.http.delete(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/delete/' + id;
+    return this.http.delete(this.url + 'delete/' + id, httpOptions).map(res => {
       return res;
     });
   }
   updateDoggie( id: number, doggieForm) {
-    const url = 'http://localhost:8000/api/update/' + id;
-    return this.http.post(url, doggieForm, httpOptions2).map(res => {
+    // const url = 'http://localhost:8000/api/update/' + id;
+    return this.http.post(this.url + 'update/' + id, doggieForm, httpOptions2).map(res => {
       return res;
     });
   }
   getDoggie(id: number) {
-    const url = 'http://localhost:8000/api/getDogProfile/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/getDogProfile/' + id;
+    return this.http.get(this.url + 'getDogProfile/' + id, httpOptions).map(res => {
       return res;
     });
   }
   getLoginId() {
-    const url = 'http://localhost:8000/api/user';
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/user';
+    return this.http.get(this.url + 'user', httpOptions).map(res => {
       return res;
     });
   }
   getProfile( id: number ) {
-    const url = 'http://localhost:8000/api/profile/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/profile/' + id;
+    return this.http.get(this.url + 'profile/' + id, httpOptions).map(res => {
       return res;
     });
   }
   dogPost(id: number, postForm) {
-    const url = 'http://localhost:8000/api/post/' + id;
-    return this.http.post(url, postForm, httpOptions2).map(res => {
+    // const url = 'http://localhost:8000/api/post/' + id;
+    return this.http.post(this.url + 'post/' + id, postForm, httpOptions2).map(res => {
     });
   }
   viewAllPosts( id: number ) {
-    console.log(id);
-    const url = 'http://localhost:8000/api/viewAllPosts/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/viewAllPosts/' + id;
+    return this.http.get(this.url + 'viewAllPosts/' + id, httpOptions).map(res => {
       return res;
     });
   }
@@ -129,6 +124,12 @@ export class PetService {
   }
   getComment( id: number ) {
     const url = 'http://localhost:8000/api/getComment/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+  getDogID( id: number ) {
+    const url = 'http://localhost:8000/api/getDogID/' + id;
     return this.http.get(url, httpOptions).map(res => {
       return res;
     });

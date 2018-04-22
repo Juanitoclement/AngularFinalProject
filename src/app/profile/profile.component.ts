@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => this.uid = params['id']);
     this.pet.getProfile(this.uid).subscribe(resp => {
       this.updateForm.name = resp['name'];
+      this.updateForm.username = resp['username'];
       this.updateForm.bio = resp['bio'];
       this.updateForm.email = resp['email'];
       this.tarid = resp['id'];

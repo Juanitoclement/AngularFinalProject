@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
   @Input() signing: SignIn;
 
   clear() {
-    this.signing.email = '';
-    this.signing.password = '';
+    this.signing = new SignIn();
   }
   submitLogin() {
     this.dataService.postSignIn(this.signing).subscribe(

@@ -59,7 +59,7 @@ export class DogprofileComponent implements OnInit {
         this.dogDisplay = resp['displaypic'];
         this.owner = resp['owner_id'];
         this.pet.getProfile(this.owner).subscribe(res => {
-          this.userForm.name = res['name'];
+          this.userForm.username = res['username'];
           if (this.owner !== this.currid) {
             this.edit = false;
           } else {
@@ -120,7 +120,7 @@ export class DogprofileComponent implements OnInit {
         postID: id,
         dogID: this.uid,
         dogName: this.dogName,
-        ownerName: this.userForm.name,
+        ownerName: this.userForm.username,
         ownerID: this.owner,
       }
     });

@@ -8,6 +8,8 @@ import instantsearch from 'instantsearch.js/dist-es5-module/src/lib/main';
 import {Router} from '@angular/router';
 import {PetService} from '../services/pet.service';
 import {NotifComponent} from '../notif/notif.component';
+import{FollowingsComponent} from '../followings/followings.component';
+import {FollowersComponent} from '../followers/followers.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -128,6 +130,32 @@ export class NavigationBarComponent implements OnInit {
       height: '500px',
       width: '500px',
       data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openFollowers(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(FollowersComponent, {
+      height: '600px',
+      width: '800x',
+      data: {
+        userID: this.id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openFollowings(): void {
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(FollowingsComponent, {
+      height: '600px',
+      width: '800x',
+      data: {
+        userID: this.id,
       }
     });
     dialogRef.afterClosed().subscribe(result => {

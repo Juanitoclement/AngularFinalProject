@@ -21,7 +21,7 @@
     <div class="w3-third" *ngFor="let p of post">
       <div style="width: 402px" (ngSubmit)="commentPost(this.data['postID'])">
         <h4><strong>
-          <a (click)="close()" routerLink="/profile/{{this.data['ownerID']}}">{{this.data['ownerName']}} 's</a>
+          <a (click)="close()" href onclick="return false ">{{this.data['ownerName']}} 's</a>
           <p (click)="close()">{{this.data['dogName']}}</p>
         </strong>
           <i class="fa fa-trash" style="float: right; padding-left:15px" (click)="deletePost(this.data['postID'])" *ngIf="edit"></i>
@@ -33,25 +33,26 @@
             <a href onclick="return false" style="float: right"><i class="fa fa-heart-o" *ngIf="!isLiked" style="margin-left: 200px" (click)="likePost(this.data['postID'])"><strong>{{this.countLike}}</strong></i></a>
             <a href onclick="return false" style="float: right"><i class="fa fa-heart" *ngIf="isLiked" style="margin-left: 200px" (click)="unlikePost(this.data['postID'])"><strong>{{this.countLike}}</strong></i></a>
           </h4>
-          <h5><i class="fa fa-location-arrow"></i> &nbsp; {{p.location}}</h5>
+          <h5><i class="fa fa-location-arrow"></i> &nbsp; {{p.location}}</h5><p style="margin-top: 10px">{{p.created_at}}</p>
               <input type="text" id="comment" [(ngModel)]="postForm.comment" *ngIf="edit3">
                 <button type="submit" (click)="commentPost(p.id)" *ngIf="edit3">Comment</button>
-                <button type="submit" (click)="getComment(p.id)">View Comment</button>
-          <p style="margin-top: 10px">{{p.created_at}}</p>
+                <button type="submit" (click)="getComment(p.id)" *ngIf="!isClose">View Comment</button>
+          <button type="submit" (click)="hide()" *ngIf="isClose">Close Comment</button>
+
         </div>
       </div>
       <div class="w3-third" [hidden]="!edit2">
         <p><strong>Edit</strong></p>
-        <p>Location</p><input type="text" id="location" [(ngModel)]="postForm.location" placeholder="{{p.location}}">
-        <p>Caption</p><input type="text" id="caption" [(ngModel)]="postForm.caption" placeholder="{{p.caption}}">
+        <p>Location</p><input type="text" id="location" [(ngModel)]="postForm.location" placeholder="{{p.location}}" value="{{p.location}}">
+        <p>Caption</p><input type="text" id="caption" [(ngModel)]="postForm.caption" placeholder="{{p.caption}}" value="{{p.caption}}">
         <button type="submit" (click)="editPost(this.data['postID'])" >Edit</button>
       </div>
-      <div>
-        <div *ngFor="let c of comment" [hidden]="!edit4">
+      <div class="ex3" [hidden]="!edit4">
+        <div *ngFor="let c of comment" [hidden]="!edit4" style="margin-bottom: 10px">
           <div style="display: inline"><strong>{{c.username}}</strong></div>
           <div style="display: inline">{{c.comment}}</div>
-          <div style="display: inline">{{c.created_at}}</div>
-          <button type="submit" (click)="deleteComment(c.id)" *ngIf="edit">Delete</button>
+          <div style="float:right" fontsize="1">{{c.created_at}}</div>
+          <i class=" fa fa-trash" (click)="deleteComment(c.id)" style="float: right" *ngIf="edit"></i>
         </div>
       </div>
   </div>

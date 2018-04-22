@@ -15,12 +15,14 @@
 <body>
 <div class="main-content">
   <div class="container">
-    <h3 class="site-title">My Profile</h3>
+    <h3 class="site-title" *ngIf="edit">My Profile</h3>
+    <h3 class="site-title" *ngIf="!edit">{{this.updateForm.username}}'s Profile</h3>
     <div class="row">
       <div class="col-md-9">
           <div class="panel">
                 <div class=" panel-body ">
                   <div class="col-md-5" style="margin-bottom: 30px">
+                    <h2>{{this.updateForm.username}}</h2>
                     <img class="img-responsive" src="http://localhost/gg/storage/app/public/images/{{this.display}}" style="width:50%;">
                     <i class="fa fa-wrench" (click)="openDialog2()" *ngIf="edit"> Edit Profile</i>
                     <div class=" clearfix">
@@ -50,6 +52,7 @@
                         <li><h4><strong>Desc: </strong>{{dog.desc}}</h4></li><br>
                         <li><h4><strong>Gender: </strong>{{dog.gender}}</h4></li><br>
                         <li><h4><strong>Age: </strong>{{dog.age}}</h4></li>
+                        <li><h4><strong>Breed: </strong>{{dog.breed}}</h4></li>
                       </ul>
                       <hr >
                     </div>

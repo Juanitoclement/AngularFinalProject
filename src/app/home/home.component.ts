@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     private user: UserService,
   ) { }
   postYouMightLike () {
-    if(localStorage.getItem('token')) {
+    if ( localStorage.getItem('token')) {
       this.user.postYouMightLike().subscribe((post: Post[]) => {
         this.post = post;
         console.log(post);
