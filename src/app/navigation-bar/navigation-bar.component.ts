@@ -20,6 +20,7 @@ import {FollowersComponent} from '../followers/followers.component';
 
 
 export class NavigationBarComponent implements OnInit {
+
   search: any;
   loggedIn: boolean;
   loggedOut: boolean;
@@ -85,8 +86,10 @@ export class NavigationBarComponent implements OnInit {
   logout() {
     this.user.logout();
   }
+
   search1() {
     const options = environment.algolia;
+
     this.search = instantsearch(options);
     this.search.addWidget(
       instantsearch.widgets.searchBox({

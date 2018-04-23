@@ -14,7 +14,7 @@ const httpOptions2 = {
 };
 @Injectable()
 export class PetService {
-  public url = 'http://localhost:8000/api/';
+  public url = 'https://api.mypetrepublic.me/';
   constructor
   (
     private http: HttpClient
