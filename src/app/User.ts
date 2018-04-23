@@ -7,6 +7,5 @@ export class User {
   id: any;
   followings: any;
   followers: any;
-  followed_id: any;
   follower_id: any;
 }

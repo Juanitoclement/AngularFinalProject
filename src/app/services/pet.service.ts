@@ -65,72 +65,72 @@ export class PetService {
     });
   }
   deletePost( id: number ) {
-    const url = 'http://localhost:8000/api/deletePost/' + id;
-    return this.http.delete(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/deletePost/' + id;
+    return this.http.delete(this.url + 'deletePost/' + id, httpOptions).map(res => {
       return res;
     });
   }
   viewPost( id: number) {
-    const url = 'http://localhost:8000/api/viewPost/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/viewPost/' + id;
+    return this.http.get(this.url + 'viewPost/' + id, httpOptions).map(res => {
       console.log(res);
       return res;
     });
   }
   updatePost(id: number, postForm) {
-    const url = 'http://localhost:8000/api/updatePost/' + id;
-    return this.http.post(url, postForm, httpOptions2).map(res => {
+    // const url = 'http://localhost:8000/api/updatePost/' + id;
+    return this.http.post(this.url + 'updatePost/' + id, postForm, httpOptions2).map(res => {
     });
   }
   likePost(id: number ) {
-    const url = 'http://localhost:8000/api/likePost/' + id;
-    return this.http.get(url, httpOptions2).map(res => {
+    // const url = 'http://localhost:8000/api/likePost/' + id;
+    return this.http.get(this.url + 'likePost/' + id, httpOptions2).map(res => {
     });
   }
   unlikePost(id: number ) {
-    const url = 'http://localhost:8000/api/unlikePost/' + id;
-    return this.http.get(url, httpOptions2).map(res => {
+    // const url = 'http://localhost:8000/api/unlikePost/' + id;
+    return this.http.get(this.url + 'unlikePost/' + id, httpOptions2).map(res => {
     });
   }
   isPostLiked(id: number ) {
-    const url = 'http://localhost:8000/api/is_post_liked/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/is_post_liked/' + id;
+    return this.http.get(this.url + 'is_post_liked/' + id, httpOptions).map(res => {
       return res;
     });
   }
   likeCount(id: number ) {
-    const url = 'http://localhost:8000/api/likeCount/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/likeCount/' + id;
+    return this.http.get(this.url + 'likeCount/' + id, httpOptions).map(res => {
       return res;
     });
   }
   commentPost(id: number, postForm) {
-    const url = 'http://localhost:8000/api/comment_post/' + id;
-    return this.http.post(url, postForm, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/comment_post/' + id;
+    return this.http.post(this.url + 'comment_post/' + id, postForm, httpOptions).map(res => {
     });
   }
   deleteComment( id: number ) {
-    const url = 'http://localhost:8000/api/delete_comment/' + id;
-    return this.http.delete(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/delete_comment/' + id;
+    return this.http.delete(this.url + 'delete_comment/' + id, httpOptions).map(res => {
       console.log(res);
       return res;
     });
   }
   commentCount( id: number ) {
-    const url = 'http://localhost:8000/api/commentCount/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/commentCount/' + id;
+    return this.http.get(this.url + 'commentCount/' + id, httpOptions).map(res => {
       return res;
     });
   }
   getComment( id: number ) {
-    const url = 'http://localhost:8000/api/getComment/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/getComment/' + id;
+    return this.http.get(this.url + 'getComment/' + id, httpOptions).map(res => {
       return res;
     });
   }
   getDogID( id: number ) {
-    const url = 'http://localhost:8000/api/getDogID/' + id;
-    return this.http.get(url, httpOptions).map(res => {
+    // const url = 'http://localhost:8000/api/getDogID/' + id;
+    return this.http.get(this.url + 'getDogID/' + id, httpOptions).map(res => {
       return res;
     });
   }

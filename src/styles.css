@@ -4,11 +4,11 @@
 @import "~font-awesome/css/font-awesome.css";
 
 
-
 /* GENERAL */
 * {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
 }
+
 html {
   overflow-y: scroll;
   background: #FFF;
@@ -517,6 +517,3 @@ a.clear-all:hover {
   font-size: 15px;
 }
 
-.ais-price-ranges--button {
-
-}

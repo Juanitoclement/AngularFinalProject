@@ -1,14 +1,22 @@
 <div>
   <div><h1> Notifications</h1></div>
+  <div style="float:right;"> <a href onclick="return false;" (click)="clearAll();">Clear All</a> </div>
   <hr>
   <hr>
   <div class="notifs">
     <div class="items" *ngFor="let i of notifications" style=" display: inline;">
       <div style="display: inline; width:350px;" >
-        <div style="display: inline;"><a href onclick="return false" (click)="redirect1(i.data.follower_id)">{{i.data.follower_username}}</a></div>
-        <div style="display: inline;"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id)">{{i.data.comment_response}}</a></div>
-        <div style="display: inline;"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id)">{{i.data.like_response}} </a></div>
+        <div style="display: inline;"><strong *ngIf="!i.bool"><a href onclick="return false" (click)="redirect1(i.data.follower_id)">{{i.data.follower_username}} </a></strong>     </div>
+        <div style="display: inline;"><div *ngIf="i.bool"><a href onclick="return false" (click)="redirect1(i.data.follower_id)">{{i.data.follower_username}} </a></div> </div>
+
+        <div style="display: inline;"><strong *ngIf="!i.bool"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id); readNotifications(i.id)">{{i.data.comment_response}}  </a> </strong></div>
+        <div style="display: inline;"><div *ngIf="i.bool"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id)">{{i.data.comment_response}}  </a></div></div>
+
+        <div style="display: inline;"><strong *ngIf="!i.bool"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id)">{{i.data.like_response}}  </a>  </strong>  </div>
+        <div style="display: inline;"><div *ngIf="i.bool"><a href onclick="return false" (click)="redirect3(i.data.post,i.notifiable_id)">{{i.data.like_response}}  </a> </div> </div>
       </div>
+      <div style="float: right;"> {{i.created_at}}</div>
+      <div style="float: right; margin:5px;" [hidden]="i.bool" class="fa fa-inbox">  </div>
       <div [hidden]="!i.hasPic" class="notifimg" style=" display: inline;">
         <div> <img style="width: 50px; height: 50px;" src="http://localhost/gg/storage/app/public/images/{{i.pic}}"> </div>
       </div>
@@ -17,13 +25,3 @@
 
   </div>
 </div>
-<!---->
-<!--<div *ngFor="let u of user" style="display: inline">-->
-  <!--<div style="display:inline;">-->
-    <!--<img src="http://localhost/gg/storage/app/public/images/{{u.displaypic}}" style="width: 50px; height: 50px">-->
-  <!--</div>-->
-  <!--<div class="panel" style="display: inline">-->
-    <!--<button class="accordion" style="display: inline; width: 350px; align-content: center" (click)="reDirect(u.id)"><strong>{{u.name}}</strong></button>-->
-  <!--</div>-->
-  <!--<hr>-->
-<!--</div>-->

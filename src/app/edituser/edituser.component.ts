@@ -17,9 +17,7 @@ export class EdituserComponent implements OnInit {
   @Input() user: User;
   formData: FormData;
   public files: UploadFile[] = [];
-
   currid: any;
-  url: any;
   constructor
   (
     private router: Router,

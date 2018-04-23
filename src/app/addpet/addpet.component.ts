@@ -3,8 +3,7 @@ import {Doggies} from '../doggies';
 import {PetService} from '../services/pet.service';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
 import {Router} from '@angular/router';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {EditpetComponent} from '../editpet/editpet.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-addpet',
@@ -71,7 +70,6 @@ export class AddpetComponent implements OnInit {
   profile() {
     this.pet.getLoginId().subscribe(resp => {
       this.currid = resp['id'];
-      console.log(this.currid);
     });
   }
   clear() {

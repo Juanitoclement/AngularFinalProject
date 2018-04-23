@@ -54,7 +54,6 @@ export class EditpetComponent implements OnInit {
       this.doggiesForm.desc = resp['desc'];
       this.doggiesForm.displaypic = resp['displaypic'];
       this.doggiesForm.id = resp['owner_id'];
-      console.log(this.doggiesForm.name);
     });
   }
   public dropped(event: UploadEvent) {
@@ -65,16 +64,13 @@ export class EditpetComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry ;
         fileEntry.file((file: File) => {
           // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
           // You could upload it like this:
           this.formData = new FormData();
           this.formData.append('displaypic', file);
-          console.log(this.formData.getAll('displaypic'));
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }

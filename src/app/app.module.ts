@@ -10,7 +10,6 @@ import { MatFormFieldModule, MatInputModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
@@ -35,7 +34,6 @@ import { NotifComponent } from './notif/notif.component';
     AppComponent,
     LoginComponent,
     FooterComponent,
-    HeaderComponent,
     HomeComponent,
     RegisterComponent,
     NavigationBarComponent,

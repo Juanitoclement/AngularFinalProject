@@ -43,7 +43,6 @@ export class UserService {
   postUpdate(updateForm) {
     const url = 'http://localhost:8000/api/update';
     return this.http.post<any>(url, updateForm, httpOptions2).map(res => {
-      console.log(res);
     });
   }
   getUser() {
@@ -108,7 +107,25 @@ export class UserService {
   postYouMightLike() {
     const url = 'http://localhost:8000/api/postYouMightLike';
     return this.http.get(url, httpOptions).map(res => {
-      console.log(res);
+      return res;
+    });
+  }
+  readNotif() {
+    const url = 'http://localhost:8000/api/readNotif';
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+  readNotification(id: number) {
+    const url = 'http://localhost:8000/api/readNotifications/' + id;
+    return this.http.get(url, httpOptions).map(res => {
+      return res;
+    });
+  }
+
+  clearAll() {
+    const url = 'http://localhost:8000/api/clearAllNotif';
+    return this.http.get(url, httpOptions).map(res => {
       return res;
     });
   }

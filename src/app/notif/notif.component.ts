@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {UserService} from '../services/user.service';
 import {PetService} from '../services/pet.service';
-import {EditpetComponent} from '../editpet/editpet.component';
 import {ViewpostComponent} from '../viewpost/viewpost.component';
 
 @Component({
@@ -17,6 +16,8 @@ export class NotifComponent implements OnInit {
   num: any;
   pic: any;
   currid: any;
+  date1: any;
+  now: any;
   public notifications: any[];
   public pics: any[];
   public type: any[];
@@ -30,11 +31,40 @@ export class NotifComponent implements OnInit {
   ) { }
   getNotification() {
     let i = 0;
+    this.user.readNotif().subscribe(res => {
+      console.log('read');
+    });
     this.user.getNotification().subscribe( (notifications: Notifications[]) => {
-      console.log(notifications);
        for (i; i < notifications.length; i++) {
          this.notifications[i] = notifications[i];
-         console.log(this.notifications[i]);
+
+           this.date1 = new Date(notifications[i]['created_at']);
+           this.now = new Date();
+           const diff = (this.now - this.date1) / 1000;
+           if (diff < 60) {
+             notifications[i]['created_at'] = Math.floor(diff) + 's ago';
+           }
+           if (diff > 60 && diff <= 5040) {
+             notifications[i]['created_at'] = Math.floor(diff / 60) + ' min ago';
+           }
+           if (diff >  5040 && diff < 86400) {
+             notifications[i]['created_at'] = Math.floor(diff / 60 / 60) + ' hrs ago';
+           }
+           if (diff > 86400 && diff < 604800) {
+             notifications[i]['created_at'] = Math.floor(diff / 60 / 60 / 24) + ' days ago';
+           }
+           if (diff > 604800 && ( diff / 60 / 60 / 24 / 7 ) < 5) {
+             notifications[i]['created_at'] = Math.floor(diff / 60 / 60 / 24 / 7) + ' weeks ago';
+           }
+           if ((diff / 60 / 60 / 24 / 7 ) >= 5) {
+             notifications[i]['created_at'] = this.date1.getDate() + '/' +  (1 + this.date1.getMonth()) + '/' + this.date1.getFullYear();
+           }
+         if (notifications[i]['read_at'] != null) {
+             this.notifications[i]['bool'] = true;
+         }
+         if (notifications[i]['read_at'] == null) {
+             this.notifications[i]['bool'] = false;
+         }
          if (this.notifications[i]['type'] === 'App\\Notifications\\PostLiked') {
            console.log('hello');
            this.subscribe1(i);
@@ -46,8 +76,20 @@ export class NotifComponent implements OnInit {
            this.pics[i] = 'empty';
            this.notifications[i]['hasPic'] = false;
          }
+         console.log(this.notifications[i]);
        }
-      console.log(this.notifications);
+    });
+  }
+  clearAll() {
+    this.user.clearAll().subscribe( re => {
+      console.log(re);
+      alert('Notifications cleared. ');
+    });
+    this.dialog.closeAll();
+  }
+  readNotifications(id) {
+    this.user.readNotification(id).subscribe(re => {
+      console.log(re);
     });
   }
   subscribe1(i) {
@@ -58,7 +100,6 @@ export class NotifComponent implements OnInit {
   }
   subscribe2(i) {
     this.pet.getProfile(this.notifications[i]['data']['follower_id']).subscribe( re => {
-      console.log(re);
       this.notifications[i]['pic'] = re['displaypic'];
       this.notifications[i]['hasPic'] = true;
     });
@@ -67,7 +108,6 @@ export class NotifComponent implements OnInit {
     this.user.getUser().subscribe(res => {
       this.currid = res['name'];
     }) ;
-    console.log(ownerID);
     this.pet.getDogID(id).subscribe( res => {
       this.num = res;
       this.pet.getDoggie(this.num).subscribe( resp => {
@@ -86,7 +126,7 @@ export class NotifComponent implements OnInit {
   }
   redirect1(id: number ) {
     this.router.navigateByUrl('/clementwashere', {skipLocationChange: true}).then( () =>
-      this.router.navigateByUrl('/profile/' + id);
+      this.router.navigateByUrl('/profile/' + id ));
     this.dialog.closeAll();
   }
   ngOnInit() {

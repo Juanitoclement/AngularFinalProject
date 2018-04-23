@@ -29,8 +29,6 @@ export class DogprofileComponent implements OnInit {
   dogDesc: any;
   owner: any;
   currid: any;
-  now: any;
-  date1: any;
   public doggies: Doggies[];
   public post: Post[];
 
@@ -78,10 +76,8 @@ export class DogprofileComponent implements OnInit {
 
   }
   viewAllPost() {
-    console.log(this.uid);
     this.route.params.subscribe(params => this.uid = params['id'] );
     this.pet.viewAllPosts(this.uid).subscribe( (post: Post[]) => {
-      console.log(post);
       this.post = post;
       if (this.post.length === 0 ) {
         this.noPost = true;
@@ -113,7 +109,6 @@ export class DogprofileComponent implements OnInit {
     });
   }
   openDialog3(id: number) {
-    console.log(id);
     this.dialog.closeAll();
     const dialogRef = this.dialog.open( ViewpostComponent, {
       data: {

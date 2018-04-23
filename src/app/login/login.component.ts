@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Inject} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { SignIn } from '../SignIn';
 import { Router } from '@angular/router';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -28,18 +28,6 @@ export class LoginComponent implements OnInit {
       alert('Login Sucessful'); this.router.navigateByUrl(this.data['page'] + this.data['now']); location.reload(); }
     );
   }
-  // openDialog(): void {
-  //   this.dialog.closeAll();
-  //   const dialogRef = this.dialog.open(RegisterComponent, {
-  //     height: '500px',
-  //     width: '500px',
-  //
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
   ngOnInit() {
     this.signing = new SignIn();
   }

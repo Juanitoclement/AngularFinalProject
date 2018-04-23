@@ -12,7 +12,6 @@ import {Post} from '../post';
 })
 export class AddpostComponent implements OnInit {
   @Input() post: Post;
-  dogid: any;
   formData: FormData;
   public files: UploadFile[] = [];
   constructor
