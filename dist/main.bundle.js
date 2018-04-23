@@ -2933,7 +2933,7 @@ var httpOptions2 = {
 var PetService = /** @class */ (function () {
     function PetService(http) {
         this.http = http;
-        this.url = 'http://localhost:8000/api/';
+        this.url = 'https://api.mypetrepublic.me/';
     }
     PetService.prototype.addDoggie = function (doggieForm) {
         return this.http.post(this.url + 'addDoggie/', doggieForm, httpOptions2).map(function (res) {
@@ -3084,7 +3084,7 @@ var UserService = /** @class */ (function () {
     }
     UserService.prototype.postSignIn = function (signing) {
         var response = {};
-        var url = 'http://localhost:8000/api/login';
+        var url = 'https://api.mypetrepublic.me/login';
         return this.http.post(url, signing, httpOptions).map(function (res) {
             response = res;
             if (res && res.data.token) {
@@ -3094,93 +3094,93 @@ var UserService = /** @class */ (function () {
         });
     };
     UserService.prototype.postRegister = function (registerForm) {
-        var url = 'http://localhost:8000/api/register';
+        var url = 'https://api.mypetrepublic.me/register';
         return this.http.post(url, registerForm, httpOptions).map(function (res) {
         });
     };
     UserService.prototype.postUpdate = function (updateForm) {
-        var url = 'http://localhost:8000/api/update';
+        var url = 'https://api.mypetrepublic.me/update';
         return this.http.post(url, updateForm, httpOptions2).map(function (res) {
         });
     };
     UserService.prototype.getUser = function () {
-        var url = 'http://localhost:8000/api/getName';
+        var url = 'https://api.mypetrepublic.me/getName';
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.following = function (id) {
-        var url = 'http://localhost:8000/api/countFollowings/' + id;
+        var url = 'https://api.mypetrepublic.me/countFollowings/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.follower = function (id) {
-        var url = 'http://localhost:8000/api/countFollowers/' + id;
+        var url = 'https://api.mypetrepublic.me/countFollowers/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.goFollow = function (id, updateForm) {
-        var url = 'http://localhost:8000/api/profile/' + id + '/follow';
+        var url = 'https://api.mypetrepublic.me/profile/' + id + '/follow';
         return this.http.post(url, updateForm, httpOptions).map(function (res) {
         });
     };
     UserService.prototype.goUnfollow = function (id, updateForm) {
-        var url = 'http://localhost:8000/api/profile/' + id + '/unfollow';
+        var url = 'https://api.mypetrepublic.me/profile/' + id + '/unfollow';
         return this.http.post(url, updateForm, httpOptions).map(function (res) {
         });
     };
     UserService.prototype.checkFollow = function (id) {
-        var url = 'http://localhost:8000/api/profile/is_followed/' + id;
+        var url = 'https://api.mypetrepublic.me/profile/is_followed/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.viewFollowers = function (id) {
-        var url = 'http://localhost:8000/api/viewFollowers/' + id;
+        var url = 'https://api.mypetrepublic.me/viewFollowers/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.viewFollowings = function (id) {
-        var url = 'http://localhost:8000/api/viewFollowings/' + id;
+        var url = 'https://api.mypetrepublic.me/viewFollowings/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             console.log(res);
             return res;
         });
     };
     UserService.prototype.getNotification = function () {
-        var url = 'http://localhost:8000/api/notifications';
+        var url = 'https://api.mypetrepublic.me/notifications';
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.logout = function () {
-        var url = 'http://localhost:8000/api/logout';
+        var url = 'https://api.mypetrepublic.me/logout';
         localStorage.removeItem('token');
         return this.http.get(url, httpOptions);
     };
     UserService.prototype.postYouMightLike = function () {
-        var url = 'http://localhost:8000/api/postYouMightLike';
+        var url = 'https://api.mypetrepublic.me/postYouMightLike';
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.readNotif = function () {
-        var url = 'http://localhost:8000/api/readNotif';
+        var url = 'https://api.mypetrepublic.me/readNotif';
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.readNotification = function (id) {
-        var url = 'http://localhost:8000/api/readNotifications/' + id;
+        var url = 'https://api.mypetrepublic.me/readNotifications/' + id;
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
     };
     UserService.prototype.clearAll = function () {
-        var url = 'http://localhost:8000/api/clearAllNotif';
+        var url = 'https://api.mypetrepublic.me/clearAllNotif';
         return this.http.get(url, httpOptions).map(function (res) {
             return res;
         });
